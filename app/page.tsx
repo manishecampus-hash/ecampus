@@ -11,6 +11,7 @@ import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { PressSection } from "@/components/press-section";
 import AIProgramFinder from "@/components/AIProgramFinder";
+import UniversitySection from "@/components/university-section";
 
 export default function Home() {
   return (
@@ -18,12 +19,13 @@ export default function Home() {
       <Header />
       {/* <CarouselBanner /> */}
       <GlowyWavesHero />
+      {/* <FeaturesSection /> */}
       <AIProgramFinder />
       {/* <LearningPathsBanner /> */}
       {/* <ProgramsSection /> */}
       <PopularCoursesSection />
       <StatsSection />
-      {/* <FeaturesSection /> */}
+      <UniversitySection />
       <GraduatesMarquee />
       <CtaSection />
       <PressSection />

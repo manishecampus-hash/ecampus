@@ -1,85 +1,120 @@
-// import {
-//   BookOpen,
-//   Users,
-//   Zap,
-//   Award,
-//   Smartphone,
-//   Briefcase
-// } from 'lucide-react'
+// "use client";
+
+// const steps = [
+//   {
+//     number: "1",
+//     color: "#ff362b",
+//     bold: "60 Seconds",
+//     label: "Discover Universities",
+//   },
+//   {
+//     number: "2",
+//     color: "#16a34a",
+//     bold: "Quick Apply",
+//     label: "Submit Your Application",
+//   },
+//   {
+//     number: "3",
+//     color: "#1e3a5f",
+//     bold: "Fast Support",
+//     label: "Get Offer & Enrollment",
+//   },
+// ];
 
 // export function FeaturesSection() {
-//   const features = [
-//     {
-//       icon: BookOpen,
-//       title: 'Expert-Led Content',
-//       description: 'Learn from industry professionals and university faculty with real-world experience and proven track records.',
-//     },
-//     {
-//       icon: Smartphone,
-//       title: '100% Online & Mobile',
-//       description: 'Study anytime, anywhere on any device. Perfect for busy professionals balancing work and learning.',
-//     },
-//     {
-//       icon: Users,
-//       title: 'Supportive Community',
-//       description: 'Connect with fellow learners, participate in group projects, and build lasting professional networks.',
-//     },
-//     {
-//       icon: Award,
-//       title: 'Recognized Credentials',
-//       description: 'Earn certificates and degrees recognized by leading employers across all major industries.',
-//     },
-//     {
-//       icon: Zap,
-//       title: 'Hands-On Projects',
-//       description: 'Work on real-world projects and build a portfolio that impresses potential employers.',
-//     },
-//     {
-//       icon: Briefcase,
-//       title: 'Career Services',
-//       description: 'Get resume reviews, interview prep, and direct connections to hiring partners.',
-//     },
-//   ]
-
 //   return (
-//     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+//     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
 //       <div className="max-w-7xl mx-auto">
-//         {/* Header */}
-//         <div className="text-center mb-16">
-//           <span className="inline-block bg-red-50 text-red-600 px-4 py-1 rounded-full text-sm font-semibold mb-4">
-//             Why Choose Elevate
-//           </span>
-//           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 text-balance">
-//             Everything You Need to Succeed
-//           </h2>
-//           <p className="text-xl text-gray-600 max-w-2xl mx-auto text-pretty">
-//             We&apos;ve designed our platform with your success in mind, combining quality education with practical support.
-//           </p>
+//         {/* Top row */}
+//         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8 sm:mb-10">
+//           {/* Left */}
+//           <div className="flex-1">
+//             <div className="flex items-center gap-2 mb-3">
+//               <div className="flex items-center gap-1">
+//                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+//                   <path
+//                     d="M4 18L10 6l6 12"
+//                     stroke="#2563eb"
+//                     strokeWidth="2.2"
+//                     strokeLinecap="round"
+//                     strokeLinejoin="round"
+//                   />
+//                   <path
+//                     d="M7 13h6"
+//                     stroke="#2563eb"
+//                     strokeWidth="2"
+//                     strokeLinecap="round"
+//                   />
+//                 </svg>
+
+//                 <span className="text-sm font-bold text-gray-800 tracking-tight">
+//                   elevate
+//                 </span>
+//               </div>
+
+//               <div className="flex items-center gap-1 bg-red-50 border border-red-100 rounded-full px-2 py-0.5">
+//                 <span className="text-xs font-black text-red-600 tracking-tighter">
+//                   ≡⏱
+//                 </span>
+//                 <span className="text-xs font-black text-red-700">60</span>
+//               </div>
+
+//               <span className="text-sm font-semibold text-gray-700">
+//                 Seconds
+//               </span>
+//             </div>
+
+//             <div className="flex items-center gap-4">
+//               <h2
+//                 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-none whitespace-nowrap"
+//                 style={{
+//                   fontFamily: "Georgia, 'Times New Roman', serif",
+//                   letterSpacing: "-0.02em",
+//                 }}
+//               >
+//                 Your admission journey
+//               </h2>
+
+//               <div className="hidden sm:block flex-1 h-px bg-gray-300 min-w-[60px] max-w-[160px]" />
+//             </div>
+//           </div>
+
+//           {/* Right */}
+//           <div className="lg:max-w-xs xl:max-w-sm lg:pt-2">
+//             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+//               Explore top universities, compare courses, apply online, and
+//               complete your admission with fast guidance every step of the way.
+//             </p>
+//           </div>
 //         </div>
 
-//         {/* Features Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//           {features.map((feature, index) => {
-//             const Icon = feature.icon
-//             return (
-//               <div key={index} className="card-hover p-8 bg-white rounded-xl border border-gray-100">
-//                 {/* Icon */}
-//                 <div className="inline-block p-3 bg-red-50 rounded-lg mb-4">
-//                   <Icon className="w-6 h-6 text-red-600" />
-//                 </div>
+//         {/* Steps */}
+//         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+//           {steps.map((step, i) => (
+//             <div
+//               key={i}
+//               className="flex items-center gap-4 bg-gray-100 rounded-xl px-6 py-5"
+//             >
+//               <span
+//                 className="text-6xl sm:text-7xl font-black leading-none select-none flex-shrink-0"
+//                 style={{
+//                   color: step.color,
+//                   fontFamily: "Georgia, 'Times New Roman', serif",
+//                   fontStyle: "italic",
+//                   lineHeight: 1,
+//                 }}
+//               >
+//                 {step.number}
+//               </span>
 
-//                 {/* Content */}
-//                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-//                   {feature.title}
-//                 </h3>
-//                 <p className="text-gray-600 leading-relaxed">
-//                   {feature.description}
-//                 </p>
-//               </div>
-//             )
-//           })}
+//               <p className="text-sm sm:text-base text-gray-700 leading-snug">
+//                 <span className="font-bold text-gray-900">{step.bold}</span>{" "}
+//                 {step.label}
+//               </p>
+//             </div>
+//           ))}
 //         </div>
 //       </div>
 //     </section>
-//   )
+//   );
 // }
