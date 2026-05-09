@@ -1,8 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowRight, Tag } from "lucide-react";
+import Link from "next/link"; // Import Link for SPA navigation
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Tag as TagIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface Offer {
@@ -12,9 +17,6 @@ export interface Offer {
   tag: string;
   title: string;
   description: string;
-  brandLogoSrc: string;
-  brandName: string;
-  promoCode?: string;
   href: string;
 }
 
@@ -22,151 +24,96 @@ interface OfferCardProps {
   offer: Offer;
 }
 
-const OfferCard = React.forwardRef<HTMLAnchorElement, OfferCardProps>(
-  ({ offer }, ref) => (
-    <motion.a
-      ref={ref}
-      href={offer.href}
-      // On mobile: cards fill ~85% of viewport width so one card is fully visible
-      // with a peek of the next. On sm+: fixed 300px width.
-      className="relative flex-shrink-0 w-[85vw] sm:w-[300px] h-[380px] rounded-2xl overflow-hidden group snap-start"
-      whileHover={{ y: -8 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      style={{ perspective: "1000px" }}
-    >
-      {/* Background Image */}
-      <img
-        src={offer.imageSrc}
-        alt={offer.imageAlt}
-        className="absolute inset-0 w-full h-2/4 object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-
-      {/* Card Content */}
-      <div className="absolute bottom-0 left-0 right-0 h-2/4 bg-card p-5 flex flex-col justify-between">
-        <div className="space-y-2">
-          {/* Tag */}
-          <div className="flex items-center text-xs text-muted-foreground">
-            <Tag className="w-4 h-4 mr-2 text-primary" />
-            <span>{offer.tag}</span>
+const OfferCard = ({ offer }: OfferCardProps) => {
+  return (
+    <div className="relative flex h-auto w-[85vw] flex-shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:w-[300px]">
+      {/* Image Section */}
+      <div className="relative h-[180px] w-full overflow-hidden">
+        <img
+          src={offer.imageSrc}
+          alt={offer.imageAlt}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute left-3 top-3">
+          <div className="flex items-center rounded-full bg-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-500 shadow-sm">
+            <TagIcon className="mr-1 h-3 w-3 fill-red-500" />
+            {offer.tag}
           </div>
-          {/* Title & Description */}
-          <h3 className="text-xl font-bold text-card-foreground leading-tight">
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="flex flex-col p-5">
+        <div className="space-y-1">
+          <h3 className="line-clamp-2 text-lg font-extrabold leading-tight text-slate-900">
             {offer.title}
           </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="line-clamp-2 text-sm text-slate-500">
             {offer.description}
           </p>
         </div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-border">
-          <div className="flex items-center gap-3">
-            <img
-              src={offer.brandLogoSrc}
-              alt={`${offer.brandName} logo`}
-              className="w-8 h-8 rounded-full object-cover bg-muted flex-shrink-0"
-            />
-            <div className="min-w-0">
-              <p className="text-xs font-semibold text-card-foreground truncate">
-                {offer.brandName}
-              </p>
-              {offer.promoCode && (
-                <p className="text-xs text-muted-foreground">
-                  {offer.promoCode}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground flex-shrink-0 transform transition-transform duration-300 group-hover:rotate-[-45deg] group-hover:bg-primary group-hover:text-primary-foreground">
-            <ArrowRight className="w-4 h-4" />
-          </div>
+        {/* Action Button Section - Fixed spacing & No Page Refresh */}
+        <div className="mt-4 border-t border-slate-100 pt-4">
+          <Link
+            href={offer.href}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-red-500 hover:text-white"
+          >
+            View Details
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
-    </motion.a>
-  ),
-);
-OfferCard.displayName = "OfferCard";
+    </div>
+  );
+};
 
-export interface OfferCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
+export const OfferCarousel = ({
+  offers,
+  className,
+}: {
   offers: Offer[];
-}
+  className?: string;
+}) => {
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
-const OfferCarousel = React.forwardRef<HTMLDivElement, OfferCarouselProps>(
-  ({ offers, className, ...props }, ref) => {
-    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollContainerRef.current) return;
+    const current = scrollContainerRef.current;
+    const scrollAmount = current.clientWidth * 0.8;
+    current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
-    const scroll = (direction: "left" | "right") => {
-      if (scrollContainerRef.current) {
-        const { current } = scrollContainerRef;
-        const scrollAmount = current.clientWidth * 0.8;
-        current.scrollBy({
-          left: direction === "left" ? -scrollAmount : scrollAmount,
-          behavior: "smooth",
-        });
-      }
-    };
-
-    return (
-      <div
-        ref={ref}
-        className={cn("relative w-full group/carousel", className)}
-        {...props}
+  return (
+    <div className={cn("group/carousel relative w-full", className)}>
+      <button
+        type="button"
+        onClick={() => scroll("left")}
+        className="absolute left-[-20px] top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md md:flex"
       >
-        {/* Left Scroll Button — hidden on mobile (touch scroll handles it) */}
-        <button
-          onClick={() => scroll("left")}
-          className={cn(
-            "absolute top-1/2 -translate-y-1/2 -left-5 z-10",
-            "w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border",
-            "items-center justify-center text-foreground",
-            // Hidden on mobile, shown on hover for md+
-            "hidden md:flex",
-            "opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300",
-            "hover:bg-background shadow-md",
-          )}
-          aria-label="Scroll Left"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
+        <ChevronLeft className="h-6 w-6" />
+      </button>
 
-        {/* Scrollable Container */}
-        <div
-          ref={scrollContainerRef}
-          className={cn(
-            "flex gap-4 sm:gap-6",
-            "overflow-x-auto",
-            // Padding so cards don't clip on edges; on mobile use px for side-peek effect
-            "px-1 pb-4",
-            // Snap behaviour
-            "snap-x snap-mandatory",
-            // Hide scrollbar across browsers
-            "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
-          )}
-        >
-          {offers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} />
-          ))}
-        </div>
-
-        {/* Right Scroll Button — hidden on mobile */}
-        <button
-          onClick={() => scroll("right")}
-          className={cn(
-            "absolute top-1/2 -translate-y-1/2 -right-5 z-10",
-            "w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border",
-            "items-center justify-center text-foreground",
-            "hidden md:flex",
-            "opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300",
-            "hover:bg-background shadow-md",
-          )}
-          aria-label="Scroll Right"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
+      <div
+        ref={scrollContainerRef}
+        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scrollbar-hide"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {offers.map((offer) => (
+          <OfferCard key={offer.id} offer={offer} />
+        ))}
       </div>
-    );
-  },
-);
-OfferCarousel.displayName = "OfferCarousel";
 
-export { OfferCarousel, OfferCard };
+      <button
+        type="button"
+        onClick={() => scroll("right")}
+        className="absolute right-[-20px] top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md md:flex"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+    </div>
+  );
+};

@@ -14,45 +14,56 @@ type Offer = {
 export const popularCourses: Offer[] = [
   {
     id: 1,
-    imageSrc:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1970&auto=format&fit=crop",
+    imageSrc: "/courses/iim-kozhikode-.jpg",
     imageAlt: "Business analysis and data visualization",
     tag: "Popular",
-    title: "Data Science Bootcamp",
-    description: "Master Python, SQL, and machine learning from scratch.",
-    brandLogoSrc:
-      "https://images.unsplash.com/photo-1522869635100-ce148e6e6db0?q=80&w=1470&auto=format&fit=crop",
+    title: "IIM K HR Analytics",
+    description: "Master HR analytics with IIM Kozhikode's online program.",
+    brandLogoSrc: "",
     brandName: "DataMasters",
     promoCode: "12 weeks",
-    href: "/",
+    href: "/programs/iim-k-hr-analytics",
   },
   {
     id: 2,
-    imageSrc:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1970&auto=format&fit=crop",
-    imageAlt: "Web development coding",
+    imageSrc: "/courses/op.webp",
+    imageAlt: "1 Year MBA - O.P Jindal",
     tag: "Trending",
-    title: "Full Stack Development",
-    description: "Learn React, Node.js, and MongoDB with real-world projects.",
+    title: "1 Year MBA - O.P Jindal",
+    description: "Accelerate your career with a fast-track degree.",
     brandLogoSrc:
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1470&auto=format&fit=crop",
     brandName: "WebDev Pro",
     promoCode: "16 weeks",
-    href: "/",
+    href: "/programs/op-jindal-mba",
   },
   {
-    id: 4,
+    id: 3,
     imageSrc:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1970&q=80",
-    imageAlt: "Global network and cloud data center",
+    imageAlt: "Online DBA - Rushfordr",
     tag: "Advanced",
-    title: "AWS Cloud Architecture",
-    description: "Design, deploy, and manage scalable cloud solutions on AWS.",
+    title: "Online DBA - Rushford",
+    description: "Earn your Swiss DBA online with Rushford University.",
     brandLogoSrc:
       "https://images.unsplash.com/photo-1560732488-6b0df240254a?auto=format&fit=crop&w=400&h=400&q=80",
     brandName: "CloudHub",
     promoCode: "10 weeks",
-    href: "/",
+    href: "/programs/rushford-dba",
+  },
+  {
+    id: 4,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "GGU Gen Ai",
+    description: "Advance your leadership with GGU's flexible online DBA.",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    brandName: "AI Academy",
+    promoCode: "14 weeks",
+    href: "/programs/ggu-gen-ai",
   },
   {
     id: 5,
@@ -60,12 +71,12 @@ export const popularCourses: Offer[] = [
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
     imageAlt: "AI and machine learning",
     tag: "New",
-    title: "Artificial Intelligence Essentials",
-    description: "Deep learning, neural networks, and AI applications.",
+    title: "IIM K AI Professional",
+    description: "Master Generative and Agentic AI through IIM Kozhikode's.",
     brandLogoSrc:
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
     brandName: "AI Academy",
     promoCode: "14 weeks",
-    href: "/",
+    href: "/programs/iimk-ai",
   },
 ];
