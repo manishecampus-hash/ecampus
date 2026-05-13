@@ -25,6 +25,8 @@ import { FAQSection } from "@/components/programs/sections/faq";
 // It gives every section the same consistent spacing automatically:
 // px-4 pb-12 pt-4 sm:px-6 sm:pb-16 sm:pt-6 lg:px-8 lg:pb-20 lg:pt-8
 import { Section } from "@/components/ui/section";
+import AboutProgram from "@/components/programs/sections/about";
+import HrAnalyticsTools from "@/components/programs/sections/analyticstools";
 
 export default function ProgramDetailsPage() {
   // seatsLeft — shows how many seats remain in the hero badge
@@ -168,106 +170,9 @@ export default function ProgramDetailsPage() {
             BEFORE: <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
             AFTER:  <Section> handles all spacing + max-w automatically
             ============================================================ */}
-        <Section>
-          <div className="grid items-start gap-10 lg:grid-cols-2">
-            {/* LEFT — about text */}
-            <div>
-              <span className="mb-3 inline-block rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600">
-                About The Program
-              </span>
 
-              <h2 className="mb-4 text-3xl font-bold text-gray-900 text-balance sm:text-4xl lg:text-5xl">
-                Transform HR into a{" "}
-                <span className="text-red-600">
-                  Strategic Business Function
-                </span>
-              </h2>
-
-              <p className="mb-3 text-base text-gray-600 sm:text-xl">
-                The IIM Kozhikode HR Analytics program is designed for
-                professionals who want to move beyond traditional HR operations
-                and become data-driven strategic leaders.
-              </p>
-              <p className="text-base text-gray-600 sm:text-xl">
-                Through live faculty-led sessions and real business cases, you
-                gain the frameworks used by leading organizations to solve
-                modern workforce challenges.
-              </p>
-
-              {/* Feature grid — 4 items in 2 columns on sm+ screens */}
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {[
-                  "Live faculty-led sessions",
-                  "Real-world business cases",
-                  "Executive alumni status",
-                  "Applied analytics toolkit",
-                ].map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-5 py-4 shadow-sm hover:border-red-100 hover:shadow-md transition-all"
-                  >
-                    <div className="rounded-full bg-red-50 p-1.5 text-red-500">
-                      <CheckCircle2 className="h-4 w-4" />
-                    </div>
-                    <span className="text-sm font-semibold text-gray-700">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* RIGHT — snapshot card */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xl shadow-slate-100">
-              <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-4">
-                <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-red-500" />
-                  Program Snapshot
-                </h3>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                  Executive Learning
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                {/* Each info row — group-hover changes label color to red */}
-                <div className="group rounded-2xl bg-slate-50 p-5 border border-slate-100 transition-colors hover:bg-white hover:border-red-200">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-red-500">
-                    Designed For
-                  </p>
-                  <p className="mt-1 text-base font-bold text-gray-800">
-                    HR professionals, managers, & business leaders
-                  </p>
-                </div>
-
-                <div className="group rounded-2xl bg-slate-50 p-5 border border-slate-100 transition-colors hover:bg-white hover:border-red-200">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-red-500">
-                    Learning Outcome
-                  </p>
-                  <p className="mt-1 text-base font-bold text-gray-800">
-                    Convert people data into high-impact business decisions
-                  </p>
-                </div>
-
-                {/* Red accent row — no hover, always red tint */}
-                <div className="rounded-2xl bg-red-50 p-5 border border-red-100">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-red-600">
-                    Career Impact
-                  </p>
-                  <p className="mt-1 text-base font-bold text-gray-900">
-                    Strategic HR roles, analytics leadership, & growth
-                    opportunities
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 flex items-center gap-2 text-xs text-slate-400 justify-center font-medium">
-                <ShieldCheck className="h-4 w-4" />
-                Official IIM Kozhikode Executive Education Program
-              </div>
-            </div>
-          </div>
-        </Section>
+        <AboutProgram />
+        <HrAnalyticsTools />
 
         {/* SyllabusSection and FeeSection already use Section internally */}
         <SyllabusSection />

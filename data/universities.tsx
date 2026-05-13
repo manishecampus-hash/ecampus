@@ -4,14 +4,14 @@ export const universities = [
     courses: "17 UG • 20 PG",
     location: "Noida",
     region: "North India",
-    image: "/universities/amity.webp",
+    image: "/universities/Untitled design (3).png",
   },
   {
     name: "Jain University Online",
     courses: "9 UG • 23 PG",
     location: "Bengaluru",
     region: "South India",
-    image: "/universities/Jain-University.webp",
+    image: "/universities/jain.png",
   },
   {
     name: "Online Manipal University",
