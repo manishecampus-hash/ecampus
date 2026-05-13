@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -94,7 +94,7 @@ export function GlowyWavesHero() {
             if (computedColor && computedColor !== "rgba(0, 0, 0, 0)") {
               if (alpha < 1) {
                 const rgbMatch = computedColor.match(
-                  /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/
+                  /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/,
                 );
                 if (rgbMatch) {
                   color = `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`;
@@ -169,7 +169,7 @@ export function GlowyWavesHero() {
     });
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     const mouseInfluence = prefersReducedMotion ? 10 : 70;
@@ -327,7 +327,9 @@ export function GlowyWavesHero() {
             variants={itemVariants}
             className="mx-auto mb-10 max-w-3xl text-lg text-foreground/70 md:text-2xl"
           >
-            Access world-class degree programs and certifications from top universities. Learn at your pace, earn recognized credentials, and advance your career globally.
+            Access world-class degree programs and certifications from top
+            universities. Learn at your pace, earn recognized credentials, and
+            advance your career globally.
           </motion.p>
 
           <motion.div

@@ -1,4 +1,4 @@
-import { CheckCircle2, ArrowRight } from 'lucide-react'
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
@@ -14,27 +14,35 @@ export function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight text-balance">
-              Master New Skills with{' '}
+              Master New Skills with{" "}
               <span className="text-gradient">World-Class Education</span>
             </h1>
 
             <p className="text-xl text-gray-600 leading-relaxed max-w-xl text-pretty">
-              Access industry-leading degree programs and certifications designed for working professionals and students who demand flexibility and quality.
+              Access industry-leading degree programs and certifications
+              designed for working professionals and students who demand
+              flexibility and quality.
             </p>
 
             {/* Benefits */}
             <div className="space-y-3 pt-4">
               <div className="flex items-center space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-red-600 flex-shrink-0" />
-                <span className="text-gray-700 font-medium">Learn from top universities and experts</span>
+                <span className="text-gray-700 font-medium">
+                  Learn from top universities and experts
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-red-600 flex-shrink-0" />
-                <span className="text-gray-700 font-medium">100% online and self-paced</span>
+                <span className="text-gray-700 font-medium">
+                  100% online and self-paced
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-red-600 flex-shrink-0" />
-                <span className="text-gray-700 font-medium">Recognized certifications & degrees</span>
+                <span className="text-gray-700 font-medium">
+                  Recognized certifications & degrees
+                </span>
               </div>
             </div>
 
@@ -56,12 +64,20 @@ export function Hero() {
               <div className="text-center">
                 <div className="inline-block">
                   <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                    <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      className="w-12 h-12 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm3-9H9v5l4.28 2.54.72-1.21-3-1.79V7z" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Start Learning Today</h3>
-                  <p className="text-gray-600">Join 100,000+ students worldwide</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Start Learning Today
+                  </h3>
+                  <p className="text-gray-600">
+                    Join 100,000+ students worldwide
+                  </p>
                 </div>
               </div>
             </div>
@@ -69,5 +85,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
