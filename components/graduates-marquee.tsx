@@ -1,166 +1,390 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 type GraduateTestimonialT = {
-  image: string;
+  initials: string;
+  avatarColor: string;
+  avatarSrc?: string;
   name: string;
   role: string;
+  rating: number;
   testimonial: string;
 };
 
 const DEFAULT_GRADUATES: GraduateTestimonialT[] = [
   {
-    image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
-    name: 'Sarah Chen',
-    role: 'Product Manager at Google',
+    initials: "SC",
+    avatarColor: "#ef4444",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&h=160&q=80",
+    name: "Sarah Chen",
+    role: "MBA, Jul'25",
+    rating: 5,
     testimonial:
-      'This degree completely transformed my career. The flexible schedule allowed me to work while studying, and the job support was instrumental in landing my dream role at Google.',
+      "This degree completely transformed my career. The flexible schedule allowed me to work while studying, and the job support was instrumental in landing my dream role at Google. The Career Services team was exceptional from start to finish.",
   },
   {
-    image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
-    name: 'Marcus Johnson',
-    role: 'Senior Engineer at Microsoft',
+    initials: "MJ",
+    avatarColor: "#f97316",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&h=160&q=80",
+    name: "Marcus Johnson",
+    role: "B.Tech, Jun'25",
+    rating: 5,
     testimonial:
-      'As a career changer, I was nervous about upskilling. The program broke everything down perfectly, and mentorship from industry experts made all the difference.',
+      "As a career changer, I was nervous about upskilling. The program broke everything down perfectly, and mentorship from industry experts made all the difference. I secured a senior engineering role at Microsoft within 3 months of graduating.",
   },
   {
-    image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
-    name: 'Priya Sharma',
-    role: 'Data Scientist at Meta',
+    initials: "PS",
+    avatarColor: "#dc2626",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=160&h=160&q=80",
+    name: "Priyanshu Mishra",
+    role: "MBA, Jul'25",
+    rating: 5,
     testimonial:
-      'The hands-on projects and real-world case studies gave me exactly what I needed. I went from curious to job-ready in less than a year. Highly recommend!',
+      "My name is Priyanshu Mishra. I am a first year student at Amity University. I am truly grateful to the Career Services team at Amity University for their constant support and guidance in helping me secure my internship as an HR Intern with Inorg.",
   },
   {
-    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
-    name: 'James Wilson',
-    role: 'MBA Graduate, Finance Director',
+    initials: "JW",
+    avatarColor: "#64748b",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=160&h=160&q=80",
+    name: "James Wilson",
+    role: "MBA, May'25",
+    rating: 4,
     testimonial:
-      'The MBA program balanced theory with practice beautifully. Studying while working was manageable because of the flexible schedule. My team has noticed a real difference.',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200',
-    name: 'Emma Rodriguez',
-    role: 'UX Designer at Apple',
-    testimonial:
-      'The design program focused on real-world problem solving. I loved the peer collaboration and the supportive community. Worth every penny!',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200',
-    name: 'David Kim',
-    role: 'DevOps Engineer at AWS',
-    testimonial:
-      'The cloud certification program was comprehensive and up-to-date. The labs were practical, and the instructors were genuinely invested in our success.',
+      "The MBA program balanced theory with practice beautifully. Studying while working was manageable because of the flexible schedule. My team has noticed a real difference in my leadership approach since graduating.",
   },
 ];
 
-const VerifyIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="14"
-    viewBox="0 0 48 48"
-    className="inline-block"
-  >
-    <polygon
-      fill="#fe332a"
-      points="29.62,3 33.053,8.308 39.367,8.624 39.686,14.937 44.997,18.367 42.116,23.995 45,29.62 39.692,33.053 39.376,39.367 33.063,39.686 29.633,44.997 24.005,42.116 18.38,45 14.947,39.692 8.633,39.376 8.314,33.063 3.003,29.633 5.884,24.005 3,18.38 8.308,14.947 8.624,8.633 14.937,8.314 18.367,3.003 23.995,5.884"
-    ></polygon>
-    <polygon
-      fill="#fff"
-      points="21.396,31.255 14.899,24.76 17.021,22.639 21.428,27.046 30.996,17.772 33.084,19.926"
-    ></polygon>
-  </svg>
-);
+const GAP = 20;
 
-const GraduateCard = ({ testimonial }: { testimonial: GraduateTestimonialT }) => (
-  <div className="p-6 rounded-xl mx-4 shadow-soft hover:shadow-medium transition-all duration-300 w-80 shrink-0 bg-white border border-gray-100">
-    <div className="flex gap-3 mb-4">
-      <img
-        className="w-12 h-12 rounded-full object-cover"
-        src={testimonial.image}
-        alt={testimonial.name}
-      />
-      <div className="flex flex-col">
-        <div className="flex items-center gap-1">
-          <p className="font-semibold text-gray-900 text-sm">{testimonial.name}</p>
-          <VerifyIcon />
-        </div>
-        <span className="text-xs text-gray-500">{testimonial.role}</span>
-      </div>
-    </div>
-    <p className="text-sm text-gray-700 leading-relaxed italic">
-      "{testimonial.testimonial}"
-    </p>
+const StarRating = ({ rating }: { rating: number }) => (
+  <div style={{ display: "flex", gap: 2, margin: "4px 0 12px" }}>
+    {[1, 2, 3, 4, 5].map((star) => (
+      <span
+        key={star}
+        style={{
+          color: star <= rating ? "#facc15" : "#e5e7eb",
+          fontSize: 16,
+          lineHeight: 1,
+        }}
+      >
+        ★
+      </span>
+    ))}
   </div>
 );
 
-function MarqueeRow({
-  data,
-  reverse = false,
-  speed = 30,
+const Avatar = ({
+  initials,
+  color,
+  src,
 }: {
-  data: GraduateTestimonialT[];
-  reverse?: boolean;
-  speed?: number;
-}) {
-  const doubled = React.useMemo(() => [...data, ...data], [data]);
-  return (
-    <div className="relative w-full mx-auto overflow-hidden">
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-32 z-10 bg-gradient-to-r from-white to-transparent" />
-      <div
-        className="flex transform-gpu min-w-[200%]"
+  initials: string;
+  color: string;
+  src?: string;
+}) => (
+  <div
+    style={{
+      width: 52,
+      height: 52,
+      borderRadius: "50%",
+      background: color,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#fff",
+      fontWeight: 700,
+      fontSize: 15,
+      flexShrink: 0,
+      overflow: "hidden",
+      border: "3px solid #fee2e2",
+    }}
+  >
+    {src ? (
+      <img
+        src={src}
+        alt={initials}
         style={{
-          animation: `marqueeScroll ${speed}s linear infinite`,
-          animationDirection: reverse ? 'reverse' : 'normal',
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+    ) : (
+      initials
+    )}
+  </div>
+);
+
+const GraduateCard = ({
+  testimonial,
+  width,
+}: {
+  testimonial: GraduateTestimonialT;
+  width: number;
+}) => {
+  const [expanded, setExpanded] = useState(false);
+  const SHORT_LIMIT = 140;
+  const isLong = testimonial.testimonial.length > SHORT_LIMIT;
+
+  const displayText =
+    !isLong || expanded
+      ? testimonial.testimonial
+      : `${testimonial.testimonial.slice(0, SHORT_LIMIT)}...`;
+
+  return (
+    <div
+      style={{
+        background: "#fff",
+        border: "1px solid #fee2e2",
+        borderRadius: 16,
+        padding: 20,
+        width,
+        minHeight: 300,
+        flexShrink: 0,
+        boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <Avatar
+          initials={testimonial.initials}
+          color={testimonial.avatarColor}
+          src={testimonial.avatarSrc}
+        />
+
+        <div style={{ minWidth: 0 }}>
+          <p
+            style={{
+              fontWeight: 800,
+              fontSize: 15,
+              margin: 0,
+              color: "#0f172a",
+            }}
+          >
+            {testimonial.name}
+          </p>
+          <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>
+            {testimonial.role}
+          </p>
+        </div>
+      </div>
+
+      <StarRating rating={testimonial.rating} />
+
+      <p
+        style={{
+          fontSize: 14,
+          color: "#475569",
+          lineHeight: 1.65,
+          margin: 0,
         }}
       >
-        {doubled.map((testimonial, i) => (
-          <GraduateCard key={i} testimonial={testimonial} />
-        ))}
-      </div>
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-32 z-10 bg-gradient-to-l from-white to-transparent" />
+        {displayText}
+      </p>
+
+      {isLong && (
+        <button
+          type="button"
+          onClick={() => setExpanded((value) => !value)}
+          style={{
+            marginTop: "auto",
+            alignSelf: "flex-start",
+            background: "#fff",
+            border: "1px solid #fecaca",
+            borderRadius: 999,
+            padding: "7px 16px",
+            fontSize: 13,
+            color: "#dc2626",
+            cursor: "pointer",
+            fontWeight: 700,
+          }}
+        >
+          {expanded ? "Show Less" : "Read More"}
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export function GraduatesMarquee({
-  row1 = DEFAULT_GRADUATES.slice(0, 3),
-  row2 = DEFAULT_GRADUATES.slice(3, 6),
+  graduates = DEFAULT_GRADUATES,
 }: {
-  row1?: GraduateTestimonialT[];
-  row2?: GraduateTestimonialT[];
+  graduates?: GraduateTestimonialT[];
 }) {
-  return (
-    <>
-      <style>{`
-        @keyframes marqueeScroll {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <span className="inline-block bg-red-50 text-red-600 px-4 py-1 rounded-full text-sm font-semibold mb-4">
-              Success Stories
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 text-balance">
-              What Our Graduates Say
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto text-pretty">
-              Join thousands of successful graduates who&apos;ve transformed their careers and achieved their goals.
-            </p>
-          </div>
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(320);
+  const [visibleCount, setVisibleCount] = useState(3);
 
-          {/* Marquee Rows */}
-          <div className="flex flex-col gap-8">
-            <MarqueeRow data={row1} reverse={false} speed={30} />
-            <MarqueeRow data={row2} reverse={true} speed={30} />
+  useEffect(() => {
+    const updateSize = () => {
+      const width = viewportRef.current?.clientWidth ?? 320;
+
+      if (width < 700) {
+        setVisibleCount(1);
+        setCardWidth(Math.min(320, width));
+      } else if (width < 1040) {
+        setVisibleCount(2);
+        setCardWidth((width - GAP) / 2);
+      } else {
+        setVisibleCount(3);
+        setCardWidth((width - GAP * 2) / 3);
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const maxIndex = useMemo(
+    () => Math.max(0, graduates.length - visibleCount),
+    [graduates.length, visibleCount],
+  );
+
+  useEffect(() => {
+    setCurrentIndex((index) => Math.min(index, maxIndex));
+  }, [maxIndex]);
+
+  const prev = () => setCurrentIndex((index) => Math.max(0, index - 1));
+  const next = () => setCurrentIndex((index) => Math.min(maxIndex, index + 1));
+
+  return (
+    <section style={{ padding: "80px 16px", background: "#fff" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <span
+            style={{
+              display: "inline-block",
+              background: "#fef2f2",
+              color: "#dc2626",
+              padding: "5px 16px",
+              borderRadius: 999,
+              fontSize: 13,
+              fontWeight: 700,
+              marginBottom: 16,
+            }}
+          >
+            Success Stories
+          </span>
+
+          <h2
+            style={{
+              fontSize: "clamp(30px, 4vw, 44px)",
+              fontWeight: 900,
+              color: "#0f172a",
+              margin: "0 0 12px",
+            }}
+          >
+            What Our Graduates Say
+          </h2>
+
+          <p
+            style={{
+              fontSize: 16,
+              color: "#64748b",
+              maxWidth: 560,
+              margin: "0 auto",
+              lineHeight: 1.6,
+            }}
+          >
+            Join thousands of successful graduates who have transformed their
+            careers and achieved their goals.
+          </p>
+        </div>
+
+        <div ref={viewportRef} style={{ overflow: "hidden", width: "100%" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: GAP,
+              transform: `translateX(-${currentIndex * (cardWidth + GAP)}px)`,
+              transition: "transform 0.4s ease",
+            }}
+          >
+            {graduates.map((graduate, index) => (
+              <GraduateCard
+                key={index}
+                testimonial={graduate}
+                width={cardWidth}
+              />
+            ))}
           </div>
         </div>
-      </section>
-    </>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 16,
+            marginTop: 36,
+          }}
+        >
+          <button
+            type="button"
+            onClick={prev}
+            disabled={currentIndex === 0}
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: "50%",
+              border: "1px solid #fecaca",
+              background: currentIndex === 0 ? "#f8fafc" : "#fff",
+              color: currentIndex === 0 ? "#cbd5e1" : "#dc2626",
+              cursor: currentIndex === 0 ? "not-allowed" : "pointer",
+              fontSize: 22,
+            }}
+          >
+            ‹
+          </button>
+
+          <div style={{ display: "flex", gap: 8 }}>
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setCurrentIndex(index)}
+                style={{
+                  width: index === currentIndex ? 24 : 8,
+                  height: 8,
+                  borderRadius: 999,
+                  background: index === currentIndex ? "#dc2626" : "#fecaca",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                  transition: "all 0.3s",
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={next}
+            disabled={currentIndex === maxIndex}
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: "50%",
+              border: "1px solid #fecaca",
+              background: currentIndex === maxIndex ? "#f8fafc" : "#fff",
+              color: currentIndex === maxIndex ? "#cbd5e1" : "#dc2626",
+              cursor: currentIndex === maxIndex ? "not-allowed" : "pointer",
+              fontSize: 22,
+            }}
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }

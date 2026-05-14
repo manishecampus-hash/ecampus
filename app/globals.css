@@ -180,3 +180,15 @@ body {
   overflow-x: hidden;
   position: relative;
 }
+
+/* card animation */
+
+@keyframes tag-border-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.tag-border-spin {
+  animation: tag-border-spin 2.5s linear infinite;
+}

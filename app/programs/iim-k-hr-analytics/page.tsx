@@ -56,7 +56,7 @@ export default function ProgramDetailsPage() {
             because it has a special bg-slate-50 background + SVG grid pattern
             and needs overflow-hidden — easier to keep custom here
             ============================================================ */}
-        <section className="relative overflow-hidden border-b border-slate-100 bg-slate-50">
+        <section className="relative overflow-hidden border-b border-slate-100 bg-slate-50 pt-12 pb-14 lg:pt-14 lg:pb-16">
           {/* Background SVG grid — purely decorative, very low opacity */}
           <div className="absolute inset-0 opacity-[0.03] [mask-image:linear-gradient(to_bottom,white,transparent)]">
             <svg className="h-full w-full" fill="none" viewBox="0 0 400 400">

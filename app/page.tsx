@@ -7,15 +7,16 @@ import { PopularCoursesSection } from "@/components/popular-courses-section";
 import { StatsSection } from "@/components/stats-section";
 // import { FeaturesSection } from "@/components/features-section";
 import { GraduatesMarquee } from "@/components/graduates-marquee";
-import { CtaSection } from "@/components/cta-section";
+// import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { PressSection } from "@/components/press-section";
 import AIProgramFinder from "@/components/AIProgramFinder";
 import UniversitySection from "@/components/university-section";
+import EcampusCta from "@/components/ui/cta";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white pt-14">
+    <main className="min-h-screen  pt-20">
       <Header />
       <div className="pt-4">
         {" "}
@@ -31,7 +32,8 @@ export default function Home() {
       <StatsSection />
       <UniversitySection />
       <GraduatesMarquee />
-      <CtaSection />
+      {/* <CtaSection /> */}
+      <EcampusCta />
       <PressSection />
       <Footer />
     </main>
