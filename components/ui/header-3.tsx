@@ -346,518 +346,518 @@
 //   return scrolled;
 // }
 
-"use client";
-import { useState, useEffect, useRef } from "react";
-import {
-  Award,
-  BookOpen,
-  Briefcase,
-  Building2,
-  ChevronDown,
-  ChevronRight,
-  Clock,
-  GraduationCap,
-  Menu,
-  Phone,
-  University,
-  X,
-  Zap,
-} from "lucide-react";
+// "use client";
+// import { useState, useEffect, useRef } from "react";
+// import {
+//   Award,
+//   BookOpen,
+//   Briefcase,
+//   Building2,
+//   ChevronDown,
+//   ChevronRight,
+//   Clock,
+//   GraduationCap,
+//   Menu,
+//   Phone,
+//   University,
+//   X,
+//   Zap,
+// } from "lucide-react";
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// // ─── Data ────────────────────────────────────────────────────────────────────
 
-const categories = [
-  {
-    id: "iim",
-    label: "IIM Certification Courses",
-    Icon: Award,
-    courses: [
-      {
-        tag: "Certification",
-        name: "IIM K – HR Management & Analytics",
-        duration: "8 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM K – AI Professional Certificate Program",
-        duration: "6 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM K – Digital Marketing & Strategy",
-        duration: "5 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM B – Finance for Non-Finance Managers",
-        duration: "4 Months",
-      },
-    ],
-  },
-  {
-    id: "dba",
-    label: "Online Doctorate (DBA)",
-    Icon: GraduationCap,
-    courses: [
-      {
-        tag: "Doctorate",
-        name: "Doctor of Business Administration – General",
-        duration: "3 Years",
-      },
-      {
-        tag: "Doctorate",
-        name: "DBA – Leadership & Strategy",
-        duration: "3 Years",
-      },
-    ],
-  },
-  {
-    id: "ug",
-    label: "Online UG Courses",
-    Icon: BookOpen,
-    courses: [
-      {
-        tag: "Undergraduate",
-        name: "B.Com – Accounting & Finance",
-        duration: "3 Years",
-      },
-      {
-        tag: "Undergraduate",
-        name: "BBA – Business Administration",
-        duration: "3 Years",
-      },
-      {
-        tag: "Undergraduate",
-        name: "B.Sc Computer Science",
-        duration: "3 Years",
-      },
-    ],
-  },
-  {
-    id: "pg",
-    label: "Online PG Courses",
-    Icon: BookOpen,
-    courses: [
-      {
-        tag: "Postgraduate",
-        name: "MBA – General Management",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "M.Com – Financial Management",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "MCA – Computer Applications",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "MA – HR & Organisational Psychology",
-        duration: "2 Years",
-      },
-    ],
-  },
-  {
-    id: "offline",
-    label: "Offline Certification Courses",
-    Icon: Building2,
-    courses: [
-      {
-        tag: "Certification",
-        name: "Data Science & Machine Learning",
-        duration: "6 Months",
-      },
-      {
-        tag: "Certification",
-        name: "Full Stack Web Development",
-        duration: "4 Months",
-      },
-    ],
-  },
-  {
-    id: "exec",
-    label: "1 Year Executive Program",
-    Icon: Briefcase,
-    courses: [
-      {
-        tag: "Executive",
-        name: "Executive MBA – Business Leadership",
-        duration: "12 Months",
-      },
-      {
-        tag: "Executive",
-        name: "Executive PG – Product Management",
-        duration: "11 Months",
-      },
-      {
-        tag: "Executive",
-        name: "Executive PG – Data Science & AI",
-        duration: "12 Months",
-      },
-    ],
-  },
-  {
-    id: "uni",
-    label: "Universities",
-    Icon: University,
-    courses: [
-      {
-        tag: "University",
-        name: "Jain University – Online Programs",
-        duration: "Multiple",
-      },
-      {
-        tag: "University",
-        name: "Amity University – Distance Learning",
-        duration: "Multiple",
-      },
-      {
-        tag: "University",
-        name: "Manipal University – UG & PG",
-        duration: "Multiple",
-      },
-    ],
-  },
-];
+// const categories = [
+//   {
+//     id: "iim",
+//     label: "IIM Certification Courses",
+//     Icon: Award,
+//     courses: [
+//       {
+//         tag: "Certification",
+//         name: "IIM K – HR Management & Analytics",
+//         duration: "8 Months",
+//       },
+//       {
+//         tag: "Certification",
+//         name: "IIM K – AI Professional Certificate Program",
+//         duration: "6 Months",
+//       },
+//       {
+//         tag: "Certification",
+//         name: "IIM K – Digital Marketing & Strategy",
+//         duration: "5 Months",
+//       },
+//       {
+//         tag: "Certification",
+//         name: "IIM B – Finance for Non-Finance Managers",
+//         duration: "4 Months",
+//       },
+//     ],
+//   },
+//   {
+//     id: "dba",
+//     label: "Online Doctorate (DBA)",
+//     Icon: GraduationCap,
+//     courses: [
+//       {
+//         tag: "Doctorate",
+//         name: "Doctor of Business Administration – General",
+//         duration: "3 Years",
+//       },
+//       {
+//         tag: "Doctorate",
+//         name: "DBA – Leadership & Strategy",
+//         duration: "3 Years",
+//       },
+//     ],
+//   },
+//   {
+//     id: "ug",
+//     label: "Online UG Courses",
+//     Icon: BookOpen,
+//     courses: [
+//       {
+//         tag: "Undergraduate",
+//         name: "B.Com – Accounting & Finance",
+//         duration: "3 Years",
+//       },
+//       {
+//         tag: "Undergraduate",
+//         name: "BBA – Business Administration",
+//         duration: "3 Years",
+//       },
+//       {
+//         tag: "Undergraduate",
+//         name: "B.Sc Computer Science",
+//         duration: "3 Years",
+//       },
+//     ],
+//   },
+//   {
+//     id: "pg",
+//     label: "Online PG Courses",
+//     Icon: BookOpen,
+//     courses: [
+//       {
+//         tag: "Postgraduate",
+//         name: "MBA – General Management",
+//         duration: "2 Years",
+//       },
+//       {
+//         tag: "Postgraduate",
+//         name: "M.Com – Financial Management",
+//         duration: "2 Years",
+//       },
+//       {
+//         tag: "Postgraduate",
+//         name: "MCA – Computer Applications",
+//         duration: "2 Years",
+//       },
+//       {
+//         tag: "Postgraduate",
+//         name: "MA – HR & Organisational Psychology",
+//         duration: "2 Years",
+//       },
+//     ],
+//   },
+//   {
+//     id: "offline",
+//     label: "Offline Certification Courses",
+//     Icon: Building2,
+//     courses: [
+//       {
+//         tag: "Certification",
+//         name: "Data Science & Machine Learning",
+//         duration: "6 Months",
+//       },
+//       {
+//         tag: "Certification",
+//         name: "Full Stack Web Development",
+//         duration: "4 Months",
+//       },
+//     ],
+//   },
+//   {
+//     id: "exec",
+//     label: "1 Year Executive Program",
+//     Icon: Briefcase,
+//     courses: [
+//       {
+//         tag: "Executive",
+//         name: "Executive MBA – Business Leadership",
+//         duration: "12 Months",
+//       },
+//       {
+//         tag: "Executive",
+//         name: "Executive PG – Product Management",
+//         duration: "11 Months",
+//       },
+//       {
+//         tag: "Executive",
+//         name: "Executive PG – Data Science & AI",
+//         duration: "12 Months",
+//       },
+//     ],
+//   },
+//   {
+//     id: "uni",
+//     label: "Universities",
+//     Icon: University,
+//     courses: [
+//       {
+//         tag: "University",
+//         name: "Jain University – Online Programs",
+//         duration: "Multiple",
+//       },
+//       {
+//         tag: "University",
+//         name: "Amity University – Distance Learning",
+//         duration: "Multiple",
+//       },
+//       {
+//         tag: "University",
+//         name: "Manipal University – UG & PG",
+//         duration: "Multiple",
+//       },
+//     ],
+//   },
+// ];
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
+// // ─── Sub-components ──────────────────────────────────────────────────────────
 
-function CourseCard({ tag, name, duration }) {
-  return (
-    <div className="group border border-gray-200 rounded-xl p-4 cursor-pointer transition-all duration-150 hover:border-red-400 hover:bg-red-50">
-      <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-1">
-        {tag}
-      </p>
-      <p className="text-sm font-medium text-gray-800 leading-snug mb-2">
-        {name}
-      </p>
-      <span className="flex items-center gap-1 text-[11px] text-gray-500">
-        <Clock size={11} />
-        {duration}
-      </span>
-    </div>
-  );
-}
+// function CourseCard({ tag, name, duration }) {
+//   return (
+//     <div className="group border border-gray-200 rounded-xl p-4 cursor-pointer transition-all duration-150 hover:border-red-400 hover:bg-red-50">
+//       <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-1">
+//         {tag}
+//       </p>
+//       <p className="text-sm font-medium text-gray-800 leading-snug mb-2">
+//         {name}
+//       </p>
+//       <span className="flex items-center gap-1 text-[11px] text-gray-500">
+//         <Clock size={11} />
+//         {duration}
+//       </span>
+//     </div>
+//   );
+// }
 
-// Desktop mega dropdown
-function MegaDropdown({ open }) {
-  const [activeCat, setActiveCat] = useState(categories[0].id);
-  const active = categories.find((c) => c.id === activeCat);
+// // Desktop mega dropdown
+// function MegaDropdown({ open }) {
+//   const [activeCat, setActiveCat] = useState(categories[0].id);
+//   const active = categories.find((c) => c.id === activeCat);
 
-  if (!open) return null;
+//   if (!open) return null;
 
-  return (
-    <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-      <div className="max-w-5xl mx-auto flex min-h-[360px]">
-        {/* Left: category list */}
-        <aside className="w-56 border-r border-gray-100 py-3 flex-shrink-0">
-          {categories.map(({ id, label, Icon }) => (
-            <button
-              key={id}
-              onMouseEnter={() => setActiveCat(id)}
-              onClick={() => setActiveCat(id)}
-              className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors duration-100 border-r-2 ${
-                activeCat === id
-                  ? "bg-red-50 border-red-500 text-red-600 font-medium"
-                  : "border-transparent text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              <span
-                className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                  activeCat === id
-                    ? "bg-red-100 text-red-500"
-                    : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                <Icon size={15} />
-              </span>
-              <span className="leading-tight">{label}</span>
-              <ChevronRight
-                size={13}
-                className="ml-auto flex-shrink-0 text-gray-400"
-              />
-            </button>
-          ))}
-        </aside>
+//   return (
+//     <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+//       <div className="max-w-5xl mx-auto flex min-h-[360px]">
+//         {/* Left: category list */}
+//         <aside className="w-56 border-r border-gray-100 py-3 flex-shrink-0">
+//           {categories.map(({ id, label, Icon }) => (
+//             <button
+//               key={id}
+//               onMouseEnter={() => setActiveCat(id)}
+//               onClick={() => setActiveCat(id)}
+//               className={`w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors duration-100 border-r-2 ${
+//                 activeCat === id
+//                   ? "bg-red-50 border-red-500 text-red-600 font-medium"
+//                   : "border-transparent text-gray-700 hover:bg-gray-50"
+//               }`}
+//             >
+//               <span
+//                 className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+//                   activeCat === id
+//                     ? "bg-red-100 text-red-500"
+//                     : "bg-gray-100 text-gray-500"
+//                 }`}
+//               >
+//                 <Icon size={15} />
+//               </span>
+//               <span className="leading-tight">{label}</span>
+//               <ChevronRight
+//                 size={13}
+//                 className="ml-auto flex-shrink-0 text-gray-400"
+//               />
+//             </button>
+//           ))}
+//         </aside>
 
-        {/* Right: courses */}
-        <div className="flex-1 flex flex-col">
-          <div className="flex-1 p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-3">
-              {active.label}
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              {active.courses.map((c, i) => (
-                <CourseCard key={i} {...c} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         {/* Right: courses */}
+//         <div className="flex-1 flex flex-col">
+//           <div className="flex-1 p-5">
+//             <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-3">
+//               {active.label}
+//             </p>
+//             <div className="grid grid-cols-2 gap-3">
+//               {active.courses.map((c, i) => (
+//                 <CourseCard key={i} {...c} />
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-// Mobile accordion
-function MobileMenu({ open }) {
-  const [expanded, setExpanded] = useState(null);
+// // Mobile accordion
+// function MobileMenu({ open }) {
+//   const [expanded, setExpanded] = useState(null);
 
-  if (!open) return null;
+//   if (!open) return null;
 
-  return (
-    <div className="fixed inset-0 top-14 bg-white z-40 overflow-y-auto pb-6 md:hidden">
-      <div className="px-4 pt-4 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 px-2 mb-2">
-          Programs
-        </p>
+//   return (
+//     <div className="fixed inset-0 top-14 bg-white z-40 overflow-y-auto pb-6 md:hidden">
+//       <div className="px-4 pt-4 space-y-1">
+//         <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 px-2 mb-2">
+//           Programs
+//         </p>
 
-        {categories.map(({ id, label, Icon, courses }) => (
-          <div key={id}>
-            <button
-              onClick={() => setExpanded(expanded === id ? null : id)}
-              className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm text-gray-800 hover:bg-gray-50 transition-colors"
-            >
-              <span className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                <Icon size={15} className="text-gray-500" />
-              </span>
-              <span className="font-medium flex-1 text-left">{label}</span>
-              <ChevronDown
-                size={15}
-                className={`text-gray-400 transition-transform duration-200 ${
-                  expanded === id ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+//         {categories.map(({ id, label, Icon, courses }) => (
+//           <div key={id}>
+//             <button
+//               onClick={() => setExpanded(expanded === id ? null : id)}
+//               className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm text-gray-800 hover:bg-gray-50 transition-colors"
+//             >
+//               <span className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+//                 <Icon size={15} className="text-gray-500" />
+//               </span>
+//               <span className="font-medium flex-1 text-left">{label}</span>
+//               <ChevronDown
+//                 size={15}
+//                 className={`text-gray-400 transition-transform duration-200 ${
+//                   expanded === id ? "rotate-180" : ""
+//                 }`}
+//               />
+//             </button>
 
-            {expanded === id && (
-              <div className="ml-11 mt-1 space-y-2 pb-2">
-                {courses.map((c, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="block px-3 py-2.5 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
-                  >
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-0.5">
-                      {c.tag}
-                    </p>
-                    <p className="text-sm font-medium text-gray-800 leading-snug">
-                      {c.name}
-                    </p>
-                    <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
-                      <Clock size={10} />
-                      {c.duration}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+//             {expanded === id && (
+//               <div className="ml-11 mt-1 space-y-2 pb-2">
+//                 {courses.map((c, i) => (
+//                   <a
+//                     key={i}
+//                     href="#"
+//                     className="block px-3 py-2.5 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
+//                   >
+//                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-0.5">
+//                       {c.tag}
+//                     </p>
+//                     <p className="text-sm font-medium text-gray-800 leading-snug">
+//                       {c.name}
+//                     </p>
+//                     <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
+//                       <Clock size={10} />
+//                       {c.duration}
+//                     </span>
+//                   </a>
+//                 ))}
+//               </div>
+//             )}
+//           </div>
+//         ))}
 
-        <div className="pt-4 border-t border-gray-100 space-y-2">
-          <a
-            href="#"
-            className="block text-sm text-gray-700 px-3 py-2 hover:bg-gray-50 rounded-lg"
-          >
-            Blog
-          </a>
-          <a
-            href="#"
-            className="block text-sm text-gray-700 px-3 py-2 hover:bg-gray-50 rounded-lg"
-          >
-            More
-          </a>
-        </div>
+//         <div className="pt-4 border-t border-gray-100 space-y-2">
+//           <a
+//             href="#"
+//             className="block text-sm text-gray-700 px-3 py-2 hover:bg-gray-50 rounded-lg"
+//           >
+//             Blog
+//           </a>
+//           <a
+//             href="#"
+//             className="block text-sm text-gray-700 px-3 py-2 hover:bg-gray-50 rounded-lg"
+//           >
+//             More
+//           </a>
+//         </div>
 
-        <div className="pt-4">
-          <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-3 rounded-xl transition-colors">
-            Enroll Now
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         <div className="pt-4">
+//           <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-3 rounded-xl transition-colors">
+//             Enroll Now
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-// ─── Main Header ─────────────────────────────────────────────────────────────
+// // ─── Main Header ─────────────────────────────────────────────────────────────
 
-export function Header() {
-  const [programOpen, setProgramOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const headerRef = useRef(null);
+// export function Header() {
+//   const [programOpen, setProgramOpen] = useState(false);
+//   const [mobileOpen, setMobileOpen] = useState(false);
+//   const [scrolled, setScrolled] = useState(false);
+//   const headerRef = useRef(null);
 
-  // Close on outside click
-  useEffect(() => {
-    function handleClick(e) {
-      if (headerRef.current && !headerRef.current.contains(e.target)) {
-        setProgramOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+//   // Close on outside click
+//   useEffect(() => {
+//     function handleClick(e) {
+//       if (headerRef.current && !headerRef.current.contains(e.target)) {
+//         setProgramOpen(false);
+//       }
+//     }
+//     document.addEventListener("mousedown", handleClick);
+//     return () => document.removeEventListener("mousedown", handleClick);
+//   }, []);
 
-  // Scroll shadow
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 8);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+//   // Scroll shadow
+//   useEffect(() => {
+//     function onScroll() {
+//       setScrolled(window.scrollY > 8);
+//     }
+//     window.addEventListener("scroll", onScroll, { passive: true });
+//     return () => window.removeEventListener("scroll", onScroll);
+//   }, []);
 
-  // Lock body scroll when mobile menu open
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
+//   // Lock body scroll when mobile menu open
+//   useEffect(() => {
+//     document.body.style.overflow = mobileOpen ? "hidden" : "";
+//     return () => {
+//       document.body.style.overflow = "";
+//     };
+//   }, [mobileOpen]);
 
-  const toggleProgram = () => {
-    setProgramOpen((p) => !p);
-    setMobileOpen(false);
-  };
+//   const toggleProgram = () => {
+//     setProgramOpen((p) => !p);
+//     setMobileOpen(false);
+//   };
 
-  const toggleMobile = () => {
-    setMobileOpen((m) => !m);
-    setProgramOpen(false);
-  };
+//   const toggleMobile = () => {
+//     setMobileOpen((m) => !m);
+//     setProgramOpen(false);
+//   };
 
-  return (
-    <header
-      ref={headerRef}
-      className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-200 ${
-        scrolled ? "shadow-md" : "border-b border-gray-200"
-      }`}
-    >
-      <nav className="max-w-6xl mx-auto h-14 px-4 flex items-center justify-between relative">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-1 select-none">
-          <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
-        </a>
+//   return (
+//     <header
+//       ref={headerRef}
+//       className={`sticky top-0 z-50 w-full bg-white transition-shadow duration-200 ${
+//         scrolled ? "shadow-md" : "border-b border-gray-200"
+//       }`}
+//     >
+//       <nav className="max-w-6xl mx-auto h-14 px-4 flex items-center justify-between relative">
+//         {/* Logo */}
+//         <a href="/" className="flex items-center gap-1 select-none">
+//           <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
+//         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1">
-          <button
-            onClick={toggleProgram}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              programOpen
-                ? "bg-red-50 text-red-600"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            Program
-            <ChevronDown
-              size={14}
-              className={`transition-transform duration-200 ${programOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-          <a
-            href="#"
-            className="px-4 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-          >
-            Blog
-          </a>
-          <button className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors">
-            More
-            <ChevronDown size={14} />
-          </button>
-        </div>
+//         {/* Desktop nav */}
+//         <div className="hidden md:flex items-center gap-1">
+//           <button
+//             onClick={toggleProgram}
+//             className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+//               programOpen
+//                 ? "bg-red-50 text-red-600"
+//                 : "text-gray-700 hover:bg-gray-100"
+//             }`}
+//           >
+//             Program
+//             <ChevronDown
+//               size={14}
+//               className={`transition-transform duration-200 ${programOpen ? "rotate-180" : ""}`}
+//             />
+//           </button>
+//           <a
+//             href="#"
+//             className="px-4 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+//           >
+//             Blog
+//           </a>
+//           <button className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+//             More
+//             <ChevronDown size={14} />
+//           </button>
+//         </div>
 
-        {/* Desktop right */}
-        <div className="hidden md:flex items-center gap-2">
-          <a
-            href="tel:18001216201"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-400 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
-          >
-            <Phone size={14} />
-            1800-121-6201
-          </a>
-          <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-lg transition-colors">
-            Enroll Now
-          </button>
-        </div>
+//         {/* Desktop right */}
+//         <div className="hidden md:flex items-center gap-2">
+//           <a
+//             href="tel:18001216201"
+//             className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-400 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+//           >
+//             <Phone size={14} />
+//             1800-121-6201
+//           </a>
+//           <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-lg transition-colors">
+//             Enroll Now
+//           </button>
+//         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={toggleMobile}
-          className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </nav>
+//         {/* Mobile hamburger */}
+//         <button
+//           onClick={toggleMobile}
+//           className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+//           aria-label="Toggle menu"
+//           aria-expanded={mobileOpen}
+//         >
+//           {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+//         </button>
+//       </nav>
 
-      {/* Desktop mega dropdown */}
-      <div className="hidden md:block relative">
-        <MegaDropdown open={programOpen} />
-      </div>
+//       {/* Desktop mega dropdown */}
+//       <div className="hidden md:block relative">
+//         <MegaDropdown open={programOpen} />
+//       </div>
 
-      {/* Mobile menu */}
-      <MobileMenu open={mobileOpen} />
-    </header>
-  );
-}
+//       {/* Mobile menu */}
+//       <MobileMenu open={mobileOpen} />
+//     </header>
+//   );
+// }
 
-// ─── Demo Page ────────────────────────────────────────────────────────────────
+// // ─── Demo Page ────────────────────────────────────────────────────────────────
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <main className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <p className="text-sm text-gray-400 mb-2">Demo Page Content</p>
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          eCampus Mega Navbar
-        </h1>
-        <p className="text-gray-500 text-sm">
-          Desktop par <strong>Program</strong> button hover/click karein mega
-          dropdown dekhne ke liye. Mobile par hamburger icon se accordion menu
-          khulega.
-        </p>
+// export default function App() {
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       <Header />
+//       <main className="max-w-3xl mx-auto px-4 py-16 text-center">
+//         <p className="text-sm text-gray-400 mb-2">Demo Page Content</p>
+//         <h1 className="text-3xl font-bold text-gray-800 mb-4">
+//           eCampus Mega Navbar
+//         </h1>
+//         <p className="text-gray-500 text-sm">
+//           Desktop par <strong>Program</strong> button hover/click karein mega
+//           dropdown dekhne ke liye. Mobile par hamburger icon se accordion menu
+//           khulega.
+//         </p>
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-          {[
-            {
-              icon: <Zap size={18} className="text-red-500" />,
-              title: "Mega Dropdown",
-              desc: "Hover-triggered left/right panel on desktop",
-            },
-            {
-              icon: <BookOpen size={18} className="text-red-500" />,
-              title: "Mobile Accordion",
-              desc: "Expandable categories in full-screen mobile menu",
-            },
-            {
-              icon: <Award size={18} className="text-red-500" />,
-              title: "Fully Responsive",
-              desc: "Adapts seamlessly from 320px to 1440px",
-            },
-          ].map((f, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-xl border border-gray-200 p-4"
-            >
-              <div className="w-9 h-9 bg-red-50 rounded-lg flex items-center justify-center mb-3">
-                {f.icon}
-              </div>
-              <p className="font-semibold text-sm text-gray-800 mb-1">
-                {f.title}
-              </p>
-              <p className="text-xs text-gray-500">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
-  );
-}
+//         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+//           {[
+//             {
+//               icon: <Zap size={18} className="text-red-500" />,
+//               title: "Mega Dropdown",
+//               desc: "Hover-triggered left/right panel on desktop",
+//             },
+//             {
+//               icon: <BookOpen size={18} className="text-red-500" />,
+//               title: "Mobile Accordion",
+//               desc: "Expandable categories in full-screen mobile menu",
+//             },
+//             {
+//               icon: <Award size={18} className="text-red-500" />,
+//               title: "Fully Responsive",
+//               desc: "Adapts seamlessly from 320px to 1440px",
+//             },
+//           ].map((f, i) => (
+//             <div
+//               key={i}
+//               className="bg-white rounded-xl border border-gray-200 p-4"
+//             >
+//               <div className="w-9 h-9 bg-red-50 rounded-lg flex items-center justify-center mb-3">
+//                 {f.icon}
+//               </div>
+//               <p className="font-semibold text-sm text-gray-800 mb-1">
+//                 {f.title}
+//               </p>
+//               <p className="text-xs text-gray-500">{f.desc}</p>
+//             </div>
+//           ))}
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }
 
 // "use client";
 // import { useState, useEffect, useRef } from "react";
@@ -1525,3 +1525,672 @@ export default function App() {
 //     </div>
 //   );
 // }
+
+"use client";
+import { useState, useEffect, useRef } from "react";
+import {
+  Award,
+  BookOpen,
+  Briefcase,
+  Building2,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  FileText,
+  GraduationCap,
+  Handshake,
+  HelpCircle,
+  Layers,
+  Leaf,
+  Menu,
+  Phone,
+  RotateCcw,
+  Shield,
+  University,
+  Users,
+  X,
+} from "lucide-react";
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const categories = [
+  {
+    id: "iim",
+    label: "IIM Certification Courses",
+    Icon: Award,
+    courses: [
+      {
+        tag: "Certification",
+        name: "IIM K – HR Management & Analytics",
+        duration: "8 Months",
+      },
+      {
+        tag: "Certification",
+        name: "IIM K – AI Professional Certificate",
+        duration: "6 Months",
+      },
+      {
+        tag: "Certification",
+        name: "IIM K – Digital Marketing & Strategy",
+        duration: "5 Months",
+      },
+      {
+        tag: "Certification",
+        name: "IIM B – Finance for Non-Finance Managers",
+        duration: "4 Months",
+      },
+    ],
+  },
+  {
+    id: "dba",
+    label: "Online Doctorate (DBA)",
+    Icon: GraduationCap,
+    courses: [
+      {
+        tag: "Doctorate",
+        name: "Doctor of Business Administration – General",
+        duration: "3 Years",
+      },
+      {
+        tag: "Doctorate",
+        name: "DBA – Leadership & Strategy",
+        duration: "3 Years",
+      },
+    ],
+  },
+  {
+    id: "ug",
+    label: "Online UG Courses",
+    Icon: BookOpen,
+    courses: [
+      {
+        tag: "Undergraduate",
+        name: "B.Com – Accounting & Finance",
+        duration: "3 Years",
+      },
+      {
+        tag: "Undergraduate",
+        name: "BBA – Business Administration",
+        duration: "3 Years",
+      },
+      {
+        tag: "Undergraduate",
+        name: "B.Sc Computer Science",
+        duration: "3 Years",
+      },
+      {
+        tag: "Undergraduate",
+        name: "BA – Psychology & Sociology",
+        duration: "3 Years",
+      },
+    ],
+  },
+  {
+    id: "pg",
+    label: "Online PG Courses",
+    Icon: Layers,
+    courses: [
+      {
+        tag: "Postgraduate",
+        name: "MBA – General Management",
+        duration: "2 Years",
+      },
+      {
+        tag: "Postgraduate",
+        name: "M.Com – Financial Management",
+        duration: "2 Years",
+      },
+      {
+        tag: "Postgraduate",
+        name: "MCA – Computer Applications",
+        duration: "2 Years",
+      },
+      {
+        tag: "Postgraduate",
+        name: "MA – HR & Organisational Psychology",
+        duration: "2 Years",
+      },
+    ],
+  },
+  {
+    id: "offline",
+    label: "Offline Certification Courses",
+    Icon: Building2,
+    courses: [
+      {
+        tag: "Certification",
+        name: "Data Science & Machine Learning",
+        duration: "6 Months",
+      },
+      {
+        tag: "Certification",
+        name: "Full Stack Web Development",
+        duration: "4 Months",
+      },
+      {
+        tag: "Certification",
+        name: "UI/UX Design Bootcamp",
+        duration: "3 Months",
+      },
+    ],
+  },
+  {
+    id: "exec",
+    label: "1 Year Executive Program",
+    Icon: Briefcase,
+    courses: [
+      {
+        tag: "Executive",
+        name: "Executive MBA – Business Leadership",
+        duration: "12 Months",
+      },
+      {
+        tag: "Executive",
+        name: "Executive PG – Product Management",
+        duration: "11 Months",
+      },
+      {
+        tag: "Executive",
+        name: "Executive PG – Data Science & AI",
+        duration: "12 Months",
+      },
+    ],
+  },
+  {
+    id: "uni",
+    label: "Universities",
+    Icon: University,
+    courses: [
+      {
+        tag: "University",
+        name: "Jain University – Online Programs",
+        duration: "Multiple",
+      },
+      {
+        tag: "University",
+        name: "Amity University – Distance Learning",
+        duration: "Multiple",
+      },
+      {
+        tag: "University",
+        name: "Manipal University – UG & PG Programs",
+        duration: "Multiple",
+      },
+    ],
+  },
+];
+
+// Company links — left column (with description)
+const companyLinks = [
+  {
+    title: "About Us",
+    href: "#",
+    description: "Learn more about our story and mission",
+    Icon: Users,
+  },
+  {
+    title: "Success Stories",
+    href: "#",
+    description: "See how learners transformed their careers",
+    Icon: Award,
+  },
+  {
+    title: "Partnerships",
+    href: "#",
+    description: "Collaborate with top universities and companies",
+    Icon: Handshake,
+  },
+];
+
+// Company links — right column (simple links)
+const companyLinks2 = [
+  { title: "Terms of Service", href: "#", Icon: FileText },
+  { title: "Privacy Policy", href: "#", Icon: Shield },
+  { title: "Refund Policy", href: "#", Icon: RotateCcw },
+  { title: "Blog", href: "#", Icon: Leaf },
+  { title: "Help Center", href: "#", Icon: HelpCircle },
+];
+
+// ─── GrayIcon ─────────────────────────────────────────────────────────────────
+
+function GrayIcon({
+  Icon,
+  size = 16,
+  boxClass = "w-9 h-9 rounded-xl bg-gray-100",
+}) {
+  return (
+    <span
+      className={`${boxClass} flex items-center justify-center flex-shrink-0`}
+    >
+      <Icon size={size} className="text-gray-500" strokeWidth={2} />
+    </span>
+  );
+}
+
+// ─── CourseCard ───────────────────────────────────────────────────────────────
+
+function CourseCard({ tag, name, duration }) {
+  return (
+    <div className="border border-gray-200 rounded-xl p-4 cursor-pointer transition-all duration-150 hover:border-red-400 hover:bg-red-50">
+      <p className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-red-500">
+        {tag}
+      </p>
+      <p className="text-sm font-medium text-gray-800 leading-snug mb-2">
+        {name}
+      </p>
+      <span className="flex items-center gap-1 text-[11px] text-gray-500">
+        <Clock size={11} />
+        {duration}
+      </span>
+    </div>
+  );
+}
+
+// ─── Program Mega Dropdown ────────────────────────────────────────────────────
+
+function ProgramDropdown({ open }) {
+  const [activeCat, setActiveCat] = useState(categories[0].id);
+  const active = categories.find((c) => c.id === activeCat);
+
+  if (!open) return null;
+
+  return (
+    <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-xl z-50">
+      <div className="max-w-5xl mx-auto flex min-h-[380px]">
+        {/* Left: category list */}
+        <aside className="w-64 border-r border-gray-100 py-2 flex-shrink-0 bg-gray-50/70">
+          {categories.map((cat) => {
+            const isActive = cat.id === activeCat;
+            return (
+              <button
+                key={cat.id}
+                onMouseEnter={() => setActiveCat(cat.id)}
+                onClick={() => setActiveCat(cat.id)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 text-left text-sm transition-all duration-100 border-r-2 ${
+                  isActive
+                    ? "bg-red-50 border-red-500 text-red-600 font-semibold"
+                    : "border-transparent text-gray-600 hover:bg-white hover:text-gray-900"
+                }`}
+              >
+                <GrayIcon
+                  Icon={cat.Icon}
+                  size={15}
+                  boxClass={`w-8 h-8 rounded-lg ${isActive ? "bg-red-100" : "bg-gray-100"}`}
+                />
+                <span className="leading-tight flex-1 text-[13px]">
+                  {cat.label}
+                </span>
+                <ChevronRight
+                  size={13}
+                  className={`flex-shrink-0 ${isActive ? "text-red-400" : "text-gray-300"}`}
+                />
+              </button>
+            );
+          })}
+        </aside>
+
+        {/* Right: courses */}
+        <div className="flex-1 flex flex-col">
+          <div className="flex items-center gap-3 px-5 pt-4 pb-3 border-b border-gray-100">
+            <GrayIcon
+              Icon={active.Icon}
+              size={18}
+              boxClass="w-11 h-11 rounded-xl bg-gray-100"
+            />
+            <div>
+              <p className="text-sm font-semibold text-gray-800">
+                {active.label}
+              </p>
+              <p className="text-[11px] text-gray-400">
+                {active.courses.length} programs available
+              </p>
+            </div>
+          </div>
+          <div className="flex-1 p-5">
+            <div className="grid grid-cols-2 gap-3">
+              {active.courses.map((c, i) => (
+                <CourseCard key={i} {...c} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+// ─── Company Dropdown ─────────────────────────────────────────────────────────
+
+function CompanyDropdown({ open }) {
+  if (!open) return null;
+
+  return (
+    <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-xl z-50">
+      <div className="max-w-5xl mx-auto py-3 px-4">
+        <div className="grid grid-cols-2 gap-4">
+          {/* Left: with description */}
+          <div className="space-y-1 border border-gray-200 rounded-xl p-2 shadow-sm bg-white">
+            {companyLinks.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <div className="w-11 h-11 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center flex-shrink-0">
+                  <item.Icon size={18} className="text-gray-700" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-gray-500">{item.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Right: simple links */}
+          <div className="space-y-0.5 p-2">
+            {companyLinks2.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <item.Icon size={15} className="text-gray-600 flex-shrink-0" />
+                <span className="text-sm font-medium text-gray-800">
+                  {item.title}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Mobile Menu ──────────────────────────────────────────────────────────────
+
+function MobileMenu({ open }) {
+  const [expanded, setExpanded] = useState(null);
+  const [companyExpanded, setCompanyExpanded] = useState(false);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 top-14 bg-white z-40 overflow-y-auto pb-8 md:hidden">
+      <div className="px-4 pt-4 space-y-1">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 mb-3">
+          Programs
+        </p>
+
+        {categories.map(({ id, label, Icon, courses }) => {
+          const isOpen = expanded === id;
+          return (
+            <div key={id}>
+              <button
+                onClick={() => setExpanded(isOpen ? null : id)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                  isOpen ? "bg-red-50" : "hover:bg-gray-50"
+                }`}
+              >
+                <GrayIcon
+                  Icon={Icon}
+                  size={15}
+                  boxClass={`w-9 h-9 rounded-xl ${isOpen ? "bg-red-100" : "bg-gray-100"}`}
+                />
+                <span
+                  className={`font-medium flex-1 text-left ${isOpen ? "text-red-600" : "text-gray-800"}`}
+                >
+                  {label}
+                </span>
+                <ChevronDown
+                  size={15}
+                  className={`flex-shrink-0 transition-transform duration-200 ${
+                    isOpen ? "rotate-180 text-red-400" : "text-gray-400"
+                  }`}
+                />
+              </button>
+
+              {isOpen && (
+                <div className="ml-12 mt-1.5 space-y-2 pb-2">
+                  {courses.map((c, i) => (
+                    <a
+                      key={i}
+                      href="#"
+                      className="block px-3 py-2.5 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5 text-red-500">
+                        {c.tag}
+                      </p>
+                      <p className="text-sm font-medium text-gray-800 leading-snug">
+                        {c.name}
+                      </p>
+                      <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
+                        <Clock size={10} />
+                        {c.duration}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* Company accordion */}
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 pt-4 mb-2">
+          Company
+        </p>
+
+        <button
+          onClick={() => setCompanyExpanded((v) => !v)}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+            companyExpanded ? "bg-gray-100" : "hover:bg-gray-50"
+          }`}
+        >
+          <GrayIcon
+            Icon={Users}
+            size={15}
+            boxClass="w-9 h-9 rounded-xl bg-gray-100"
+          />
+          <span className="font-medium flex-1 text-left text-gray-800">
+            Company
+          </span>
+          <ChevronDown
+            size={15}
+            className={`text-gray-400 transition-transform duration-200 ${companyExpanded ? "rotate-180" : ""}`}
+          />
+        </button>
+
+        {companyExpanded && (
+          <div className="ml-12 mt-1.5 space-y-1 pb-2">
+            {[...companyLinks, ...companyLinks2].map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <item.Icon size={14} className="text-gray-500 flex-shrink-0" />
+                <span className="text-sm text-gray-700">{item.title}</span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        <div className="pt-3 space-y-2">
+          <a
+            href="tel:18001216201"
+            className="flex items-center justify-center gap-2 w-full border border-red-400 text-red-500 text-sm font-medium py-2.5 rounded-xl hover:bg-red-50 transition-colors"
+          >
+            <Phone size={14} /> 1800-121-6201
+          </a>
+          <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-3 rounded-xl transition-colors">
+            Enroll Now
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+export function Header() {
+  const [activeMenu, setActiveMenu] = useState(null); // "program" | "company" | null
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClick(e) {
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
+        setActiveMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Scroll detection for shadow
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Lock body scroll on mobile menu
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const toggle = (menu) => {
+    setActiveMenu((prev) => (prev === menu ? null : menu));
+    setMobileOpen(false);
+  };
+
+  return (
+    <header
+      ref={headerRef}
+      className={`fixed top-0 left-0 right-0 z-50 w-full bg-white transition-shadow duration-200 ${
+        scrolled ? "shadow-md" : "border-b border-gray-200"
+      }`}
+    >
+      <nav className="max-w-6xl mx-auto h-14 px-4 flex items-center justify-between relative">
+        {/* Logo */}
+        <a
+          href="/"
+          className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
+        >
+          <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
+        </a>
+
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-1">
+          <button
+            onClick={() => toggle("program")}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeMenu === "program"
+                ? "bg-red-50 text-red-600"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            Programs
+            <ChevronDown
+              size={14}
+              className={`transition-transform duration-200 ${activeMenu === "program" ? "rotate-180" : ""}`}
+            />
+          </button>
+
+          <button
+            onClick={() => toggle("company")}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeMenu === "company"
+                ? "bg-gray-100 text-gray-900"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            Company
+            <ChevronDown
+              size={14}
+              className={`transition-transform duration-200 ${activeMenu === "company" ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
+
+        {/* Desktop right */}
+        <div className="hidden md:flex items-center gap-2">
+          <a
+            href="tel:18001216201"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+          >
+            <Phone size={14} />
+            1800-121-6201
+          </a>
+          <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shadow-red-200">
+            Enroll Now
+          </button>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => {
+            setMobileOpen((m) => !m);
+            setActiveMenu(null);
+          }}
+          className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+          aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </nav>
+
+      {/* Desktop dropdowns */}
+      <div className="hidden md:block relative">
+        <ProgramDropdown open={activeMenu === "program"} />
+        <CompanyDropdown open={activeMenu === "company"} />
+      </div>
+
+      {/* Mobile menu */}
+      <MobileMenu open={mobileOpen} />
+    </header>
+  );
+}
+
+// ─── Usage note ───────────────────────────────────────────────────────────────
+// In your layout.tsx wrap content with pt-14 to account for fixed navbar:
+//   <Header />
+//   <main className="pt-14">{children}</main>
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <main className="pt-14 max-w-3xl mx-auto px-4 py-16 text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">
+          Demo
+        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">
+          eCampus Mega Navbar
+        </h1>
+        <p className="text-gray-500 text-sm mb-2">
+          <strong>Programs</strong> — mega dropdown with category hover.
+        </p>
+        <p className="text-gray-500 text-sm mb-10">
+          <strong>Company</strong> — two-column dropdown (description + quick
+          links).
+        </p>
+        <p className="text-gray-400 text-xs">
+          Scroll karo — navbar upar fixed rahega ✓
+        </p>
+      </main>
+    </div>
+  );
+}

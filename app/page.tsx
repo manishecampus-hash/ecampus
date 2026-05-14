@@ -1,6 +1,6 @@
 import { Header } from "@/components/ui/header-3";
-// import { CarouselBanner } from '@/components/carousel-banner'
-import { GlowyWavesHero } from "@/components/glowy-waves-hero";
+import { CarouselBanner } from "@/components/carousel-banner";
+// import { GlowyWavesHero } from "@/components/glowy-waves-hero";
 // import { LearningPathsBanner } from "@/components/learning-paths-banner";
 // import { ProgramsSection } from "@/components/programs-section";
 import { PopularCoursesSection } from "@/components/popular-courses-section";
@@ -15,10 +15,14 @@ import UniversitySection from "@/components/university-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pt-14">
       <Header />
-      {/* <CarouselBanner /> */}
-      <GlowyWavesHero />
+      <div className="pt-4">
+        {" "}
+        {/* carousel se upar gap */}
+        <CarouselBanner />
+      </div>
+      {/* <GlowyWavesHero /> */}
       {/* <FeaturesSection /> */}
       <AIProgramFinder />
       {/* <LearningPathsBanner /> */}
