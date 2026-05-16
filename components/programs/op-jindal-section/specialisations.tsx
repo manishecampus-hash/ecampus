@@ -9,7 +9,6 @@ import {
   Users,
   Globe,
   Laptop2,
-  ArrowUpRight,
 } from "lucide-react";
 
 import { Section } from "@/components/ui/section";
@@ -91,17 +90,13 @@ export default function Specialisations() {
                 key={item.title}
                 className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white/80 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:bg-white hover:shadow-[0_24px_70px_rgba(220,38,38,0.16)]"
               >
-                <div className="absolute right-4 top-4 text-5xl font-black text-slate-100 transition-colors duration-300 group-hover:text-red-50">
+                <div className="absolute right-4 top-4 text-5xl font-black text-slate-100 transition-colors duration-300 group-hover:text-red-200">
                   {String(index + 1).padStart(2, "0")}
                 </div>
 
                 <div className="relative mb-6 flex items-center justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-50 to-rose-100 text-red-600 shadow-inner transition-all duration-300 group-hover:scale-105 group-hover:from-red-600 group-hover:to-rose-500 group-hover:text-white">
                     <Icon className="h-7 w-7" />
-                  </div>
-
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-red-600">
-                    <ArrowUpRight className="h-4 w-4" />
                   </div>
                 </div>
 
