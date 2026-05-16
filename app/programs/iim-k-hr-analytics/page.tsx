@@ -18,7 +18,7 @@ import { Header } from "@/components/ui/header-3";
 import { Footer } from "@/components/footer";
 import { OnlineMbaWorth } from "@/components/programs/sections/growth";
 import { SyllabusSection } from "@/components/programs/sections/Syllabus";
-import { FeeSection } from "@/components/programs/sections/fee";
+
 import { FAQSection } from "@/components/programs/sections/faq";
 
 // Section component — replaces <section> + inner <div className="mx-auto max-w-7xl px-4 ...">
@@ -27,6 +27,8 @@ import { FAQSection } from "@/components/programs/sections/faq";
 import { Section } from "@/components/ui/section";
 import AboutProgram from "@/components/programs/sections/about";
 import HrAnalyticsTools from "@/components/programs/sections/analyticstools";
+import YearClass from "@/components/programs/sections/year-class";
+import FeeSection from "@/components/programs/sections/fee";
 
 export default function ProgramDetailsPage() {
   // seatsLeft — shows how many seats remain in the hero badge
@@ -183,6 +185,7 @@ export default function ProgramDetailsPage() {
             BEFORE: <section className="mx-auto max-w-7xl px-4 py-12 ...">
             AFTER:  <Section> handles it
             ============================================================ */}
+        <YearClass />
         <Section>
           <div className="mb-8 text-center sm:mb-12">
             <span className="mb-3 inline-block rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600 sm:mb-4">

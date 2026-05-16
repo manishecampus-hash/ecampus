@@ -1,172 +1,185 @@
+"use client";
+
 import React from "react";
 import {
   CheckCircle2,
   XCircle,
   Award,
   Target,
-  Zap,
   ShieldCheck,
   ChevronRight,
 } from "lucide-react";
-import { Section } from "@/components/ui/section";
 
-export const ComparisonSection = () => {
+import { Section } from "@/components/ui/section";
+import WhyChooseSection from "./why-choose";
+
+export default function ComparisonSection() {
   const comparisonData = [
     {
       feature: "Duration & ROI",
-      jgu: "12-Month Accelerated MBA. Faster entry to job market with higher ROI.",
-      others: "24-Month traditional timeline. Higher opportunity cost of time.",
+      jgu: "12-Month Accelerated MBA with faster career growth and higher ROI.",
+      others: "24-Month traditional MBA with longer completion timeline.",
     },
     {
       feature: "Accreditation",
-      jgu: "AACSB Accredited (Global Gold Standard held by top 5% schools).",
-      others: "Mostly non-AACSB; rely only on local regional approvals.",
+      jgu: "AACSB Accredited — Global Gold Standard held by top B-schools.",
+      others: "Limited global accreditation and recognition.",
     },
     {
       feature: "Institutional Standing",
-      jgu: "Institutions of Eminence (IoE) status by the Ministry of Education.",
-      others:
-        "Standard private or state university status without IoE recognition.",
+      jgu: "Institution of Eminence (IoE) recognition by Ministry of Education.",
+      others: "Regular university recognition without IoE status.",
     },
     {
       feature: "Learning Format",
-      jgu: "Fully online, live-enabled sessions with high academic rigor.",
-      others: "Recorded content-heavy delivery with limited live interaction.",
+      jgu: "Live online learning with faculty interaction and practical sessions.",
+      others: "Mostly recorded classes with limited engagement.",
     },
     {
       feature: "Global Exposure",
-      jgu: "Option for short-term study abroad and global peer networking.",
-      others: "Limited to local curriculum with zero international exposure.",
+      jgu: "Global networking and international immersion opportunities.",
+      others: "Limited international exposure and networking.",
     },
     {
       feature: "Curriculum Focus",
-      jgu: "Industry 4.0 ready: AI, Digital Transformation, and Analytics.",
-      others: "Outdated theoretical models with slow industry alignment.",
+      jgu: "Industry-ready curriculum focused on AI, Analytics & Leadership.",
+      others: "Traditional syllabus with slower industry adaptation.",
     },
   ];
 
   return (
-    /* Removed top padding using py-0 or pt-0 */
-    <Section>
-      <div className="mx-auto max-w-7xl">
-        {/* Heading Area - Reduced mb-14 to mb-8 for tighter spacing */}
-        <div className="mb-8 text-center pt-8">
-          <h2 className="text-3xl font-black tracking-tight text-slate-900 sm:text-5xl">
-            1-Year <span className="text-red-600">vs</span> 2-Year MBA
-          </h2>
-          <p className="mt-4 text-slate-500 font-medium max-w-2xl mx-auto">
-            See how the JGU 1-Year Online MBA redefines executive education
-            compared to traditional programs.
-          </p>
-        </div>
+    <>
+      <Section className="bg-white !py-8 sm:!py-10">
+        <div className="mx-auto max-w-7xl">
+          {/* Badge */}
+          <div className="mb-4 flex justify-center">
+            <span className="inline-flex items-center rounded-full bg-red-50 px-4 py-1.5 text-sm font-semibold text-red-600">
+              1 Year MBA — O.P. Jindal
+            </span>
+          </div>
 
-        {/* Comparison Structure */}
-        <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-100">
-          <div className="grid grid-cols-1 md:grid-cols-12">
-            {/* Feature Label Column (Desktop) */}
-            <div className="hidden md:flex md:col-span-3 flex-col bg-slate-50/50">
-              <div className="h-24 border-b border-slate-200 p-8 flex items-end">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                  Parameter
-                </span>
-              </div>
-              {comparisonData.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="h-28 border-b border-slate-100 p-8 flex items-center"
-                >
-                  <span className="text-sm font-bold text-slate-700">
-                    {item.feature}
+          {/* Heading */}
+          <div className="mb-5 text-center">
+            <h2 className="text-2xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              1-Year <span className="text-red-600">vs</span> 2-Year MBA
+            </h2>
+
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base">
+              Compare how the JGU 1-Year Online MBA stands ahead of traditional
+              MBA programs.
+            </p>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg">
+            <div className="grid grid-cols-12">
+              {/* Features */}
+              <div className="col-span-4 border-r border-slate-200 bg-slate-50/70">
+                <div className="flex h-12 items-center border-b border-slate-200 px-3 sm:px-4">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 sm:text-[10px]">
+                    Parameters
                   </span>
                 </div>
-              ))}
-            </div>
 
-            {/* JGU Column (The Highlighted Winner) */}
-            <div className="md:col-span-5 border-x-0 md:border-x border-slate-200 relative">
-              <div className="h-24 bg-white border-b-2 border-red-600 p-6 flex flex-col justify-center items-center text-center">
-                <span className="text-[9px] font-black uppercase text-red-600 tracking-tighter mb-1">
-                  Recommended
-                </span>
-                <h3 className="text-lg font-black text-slate-900 uppercase leading-none">
-                  JGU 1-Year Online MBA
-                </h3>
+                {comparisonData.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex min-h-[72px] items-center border-b border-slate-100 px-3 py-2 sm:px-4"
+                  >
+                    <span className="text-[11px] font-bold leading-4 text-slate-700 sm:text-sm">
+                      {item.feature}
+                    </span>
+                  </div>
+                ))}
               </div>
 
-              {comparisonData.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="h-auto md:h-28 border-b border-slate-100 p-6 md:p-8 flex flex-col justify-center bg-red-50/5"
-                >
-                  <span className="md:hidden text-[10px] font-bold text-red-600 uppercase mb-2">
-                    {item.feature}
+              {/* JGU */}
+              <div className="col-span-4 border-r border-slate-200">
+                <div className="flex h-12 flex-col items-center justify-center border-b-2 border-red-600 px-2 text-center">
+                  <span className="text-[7px] font-black uppercase tracking-[0.15em] text-red-600 sm:text-[8px]">
+                    Recommended
                   </span>
-                  <div className="flex gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
-                    <p className="text-sm font-bold text-slate-900 leading-snug">
+
+                  <h3 className="mt-0.5 text-[10px] font-black leading-none text-slate-900 sm:text-sm">
+                    JGU MBA
+                  </h3>
+                </div>
+
+                {comparisonData.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex min-h-[72px] items-start border-b border-slate-100 bg-red-50/10 px-2 py-2 sm:px-3"
+                  >
+                    <CheckCircle2 className="mt-0.5 mr-1.5 h-3.5 w-3.5 shrink-0 text-green-500 sm:h-4 sm:w-4" />
+
+                    <p className="text-[10px] leading-4 text-slate-900 sm:text-xs sm:leading-5">
                       {item.jgu}
                     </p>
                   </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Competitor Column */}
-            <div className="md:col-span-4 bg-white">
-              <div className="h-24 border-b border-slate-200 p-6 flex items-center justify-center text-center">
-                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-                  Other MBA Programs
-                </h3>
+                ))}
               </div>
-              {comparisonData.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="h-auto md:h-28 border-b border-slate-100 p-6 md:p-8 flex flex-col justify-center opacity-60"
-                >
-                  <span className="md:hidden text-[10px] font-bold text-slate-400 uppercase mb-2">
-                    {item.feature}
-                  </span>
-                  <div className="flex gap-3">
-                    <XCircle className="h-5 w-5 text-slate-300 shrink-0" />
-                    <p className="text-sm font-medium text-slate-500 leading-snug">
+
+              {/* Others */}
+              <div className="col-span-4 bg-white">
+                <div className="flex h-12 items-center justify-center border-b border-slate-200 px-2 text-center">
+                  <h3 className="text-[9px] font-bold uppercase tracking-wide text-slate-400 sm:text-xs">
+                    Other MBAs
+                  </h3>
+                </div>
+
+                {comparisonData.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex min-h-[72px] items-start border-b border-slate-100 px-2 py-2 opacity-80 sm:px-3"
+                  >
+                    <XCircle className="mt-0.5 mr-1.5 h-3.5 w-3.5 shrink-0 text-slate-300 sm:h-4 sm:w-4" />
+
+                    <p className="text-[10px] leading-4 text-slate-500 sm:text-xs sm:leading-5">
                       {item.others}
                     </p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Footer CTAs */}
-        <div className="mt-12 mb-16 flex flex-col items-center">
-          <div className="flex flex-wrap justify-center gap-6 mb-10">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="text-red-600 h-5 w-5" />
-              <span className="text-xs font-bold uppercase text-slate-600">
-                AACSB Accredited
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Target className="text-red-600 h-5 w-5" />
-              <span className="text-xs font-bold uppercase text-slate-600">
-                UGC Approved
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Award className="text-red-600 h-5 w-5" />
-              <span className="text-xs font-bold uppercase text-slate-600">
-                IoE Recognition
-              </span>
+                ))}
+              </div>
             </div>
           </div>
 
-          <button className="group flex items-center gap-3 bg-red-600 text-white px-10 py-4 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-xl shadow-red-100 active:scale-95">
-            Download Program Syllabus
-            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
+          {/* Footer */}
+          <div className="mt-5 flex flex-col items-center">
+            <div className="mb-4 flex flex-wrap justify-center gap-3">
+              <div className="flex items-center gap-1">
+                <ShieldCheck className="h-3.5 w-3.5 text-red-600" />
+
+                <span className="text-[9px] font-bold uppercase text-slate-600 sm:text-[10px]">
+                  AACSB Accredited
+                </span>
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Target className="h-3.5 w-3.5 text-red-600" />
+
+                <span className="text-[9px] font-bold uppercase text-slate-600 sm:text-[10px]">
+                  UGC Approved
+                </span>
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Award className="h-3.5 w-3.5 text-red-600" />
+
+                <span className="text-[9px] font-bold uppercase text-slate-600 sm:text-[10px]">
+                  IoE Recognition
+                </span>
+              </div>
+            </div>
+
+            <button className="group flex items-center gap-2 rounded-xl bg-red-600 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] text-white shadow-md transition-all duration-300 hover:bg-slate-900 active:scale-95 sm:px-8 sm:py-3 sm:text-xs">
+              Download Program Syllabus
+              <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+
+      <WhyChooseSection />
+    </>
   );
-};
+}

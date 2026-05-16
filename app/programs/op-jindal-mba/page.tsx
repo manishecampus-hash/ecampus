@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { OpjIntroduction } from "@/components/programs/op-jindal-section/opj-introduction";
-import { ComparisonSection } from "@/components/programs/op-jindal-section/comparison-section";
 import { SectionHeader } from "@/components/ui/section-header";
 import {
   ChevronRight,
@@ -16,6 +15,7 @@ import {
 } from "lucide-react";
 import { Header } from "@/components/ui/header-3";
 import { Footer } from "@/components/footer";
+import ComparisonSection from "@/components/programs/op-jindal-section/comparison-section";
 
 export default function Page() {
   const [seatsLeft, setSeatsLeft] = useState(12);
@@ -98,52 +98,13 @@ export default function Page() {
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <button className="rounded-full border border-slate-200 bg-white px-8 py-4 text-sm font-black uppercase tracking-widest text-slate-700 transition hover:bg-slate-50 active:scale-95">
-                    Download Brochure
+                    Brochure
                   </button>
                 </div>
 
                 {/* 6. Social Proof */}
-                <div className="flex items-center gap-6 pt-6">
-                  <div className="flex -space-x-3">
-                    {[
-                      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100",
-                      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100",
-                      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100",
-                      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100",
-                    ].map((url, i) => (
-                      <div
-                        key={i}
-                        className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white shadow-sm"
-                      >
-                        <Image
-                          src={url}
-                          alt={`Student ${i + 1}`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-slate-900 text-[10px] font-bold text-white shadow-sm">
-                      +5k
-                    </div>
-                  </div>
 
-                  <div className="h-10 w-[1px] bg-slate-200" />
-
-                  <div>
-                    <div className="flex items-center gap-1 text-orange-400">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className="h-3.5 w-3.5 fill-current" />
-                      ))}
-                      <span className="ml-1 text-sm font-bold text-slate-900">
-                        4.9/5
-                      </span>
-                    </div>
-                    <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                      Top Rated MBA Program
-                    </p>
-                  </div>
-                </div>
+                <div></div>
               </div>
 
               {/* Right Column: Hero Image */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Globe2,
   PieChart,
@@ -10,6 +10,7 @@ import {
 import { Section } from "@/components/ui/section";
 
 export function OnlineMbaWorth() {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div className="bg-white font-sans antialiased text-slate-900">
       {/* --- Section 1: Hero Narrative ---
@@ -25,37 +26,89 @@ export function OnlineMbaWorth() {
             </span>
             Executive Insights
           </div>
-          <h2 className="mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-            Is an <span className="text-red-600">Online MBA</span>{" "}
-            <br className="hidden md:block" /> Truly Worth the Investment?
-          </h2>
-          <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-xl">
-            The modern professional landscape no longer demands a choice between
-            career growth and academic excellence. An accredited online MBA
-            provides the same prestige as on-campus programs with the agility to
-            solve tomorrow's business challenges today.
-          </p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 text-left">
-            {[
-              "Maintain executive salary while earning credentials",
-              "Specialized tracks in AI, FinTech, and ESG",
-              "Global networking without borders",
-              "Immediate ROI through workplace application",
-            ].map((text, i) => (
-              <div
-                key={i}
-                className="group flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-5 transition-all hover:bg-white hover:shadow-md"
-              >
-                <div className="rounded-lg bg-red-100 p-1 group-hover:bg-red-600 transition-colors">
-                  <CheckCircle2 className="h-5 w-5 text-red-600 group-hover:text-white" />
-                </div>
-                <span className="text-sm font-semibold leading-tight text-gray-700">
-                  {text}
-                </span>
-              </div>
-            ))}
+          <h3 className="mb-5 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl lg:text-2xl">
+            Why Choose an HR Analytics Course{" "}
+            <span className="text-red-600">Online?</span>
+          </h3>
+
+          <div className="space-y-4 text-sm leading-7 text-gray-700 sm:text-base lg:text-lg">
+            <p>
+              An HR Analytics course online helps professionals develop modern,
+              data-driven HR skills that are highly valued across industries.
+              From workforce planning to employee performance analysis, the
+              course equips learners with practical knowledge to make smarter HR
+              decisions.
+            </p>
+
+            <p className="font-semibold text-gray-900">
+              Here’s why choosing an online HR analytics course is beneficial:
+            </p>
           </div>
+
+          {/* Collapsible Content Section */}
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              isExpanded
+                ? "mt-4 max-h-[1200px] opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <ul className="space-y-4 pl-5 pt-4 text-sm leading-7 text-gray-700 sm:text-base lg:text-lg">
+              <li className="list-disc">
+                <strong className="font-semibold text-gray-900">
+                  Learn In-Demand HR Skills:
+                </strong>{" "}
+                Gain expertise in people analytics, workforce management,
+                recruitment metrics, and performance analysis.
+              </li>
+
+              <li className="list-disc">
+                <strong className="font-semibold text-gray-900">
+                  Flexible Learning Experience:
+                </strong>{" "}
+                Study anytime and from anywhere while balancing your job,
+                business, or personal commitments.
+              </li>
+
+              <li className="list-disc">
+                <strong className="font-semibold text-gray-900">
+                  Industry-Relevant Curriculum:
+                </strong>{" "}
+                Online HR analytics courses are designed to match current
+                industry trends, including AI-driven HR practices and data-based
+                decision-making.
+              </li>
+
+              <li className="list-disc">
+                <strong className="font-semibold text-gray-900">
+                  Better Career Opportunities:
+                </strong>{" "}
+                HR analytics skills can help professionals qualify for advanced
+                HR roles and improve long-term career growth potential.
+              </li>
+
+              <li className="list-disc">
+                <strong className="font-semibold text-gray-900">
+                  Practical Business Insights:
+                </strong>{" "}
+                Learn how to analyze employee data, improve retention
+                strategies, and support organizational growth through informed
+                HR decisions.
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-5">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-red-700"
+            >
+              {isExpanded ? "Read Less" : "Read More"}
+            </button>
+          </div>
+
+          {/* Toggle Trigger */}
         </div>
       </Section>
 
