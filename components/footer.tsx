@@ -11,48 +11,78 @@ const navigation = {
       name: "Programs",
       sections: [
         {
-          id: "degrees",
-          name: "Degrees",
+          id: "online DBA Program",
+          name: "Online DBA Program",
           items: [
-            { name: "Bachelor's Degrees", href: "/degrees/bachelors" },
-            { name: "Master's Degrees", href: "/degrees/masters" },
-            { name: "Doctoral Programs", href: "/degrees/phd" },
+            { name: "Birchwood University", href: "/degrees/bachelors" },
+            { name: "EIMT", href: "/degrees/masters" },
+            {
+              name: "Swiss School of Business and Management",
+              href: "/degrees/phd",
+            },
+            {
+              name: "Ecole de Commerce International (ESGCI)",
+              href: "/degrees/phd",
+            },
+            {
+              name: "Rushford Business School",
+              href: "/degrees/phd",
+            },
+            {
+              name: "Edgewood",
+              href: "/degrees/phd",
+            },
+            {
+              name: "Golden Gate University",
+              href: "/degrees/phd",
+            },
           ],
         },
         {
-          id: "professional",
-          name: "Professional",
+          id: "Certificate Program",
+          name: "Certificate Program",
           items: [
-            { name: "Certifications", href: "/certifications" },
-            { name: "Executive Programs", href: "/executive" },
-            { name: "Bootcamps", href: "/bootcamps" },
+            {
+              name: "IIM K - HR Management & Analytics",
+              href: "/certifications",
+            },
+            {
+              name: "IIM K-AI Professional Certificate Program",
+              href: "/executive",
+            },
           ],
         },
         {
-          id: "learning",
-          name: "Learning",
+          id: "Online UG Courses",
+          name: "Online UG Courses",
           items: [
-            { name: "Micro-Credentials", href: "/micro-credentials" },
-            { name: "Mini-Courses", href: "/mini-courses" },
-            { name: "Corporate Training", href: "/corporate-training" },
+            { name: "Online BBA", href: "/micro-credentials" },
+            { name: "Online BCA", href: "/mini-courses" },
+            { name: "Online BSC", href: "/corporate-training" },
+            { name: "Online BA", href: "/corporate-training" },
+            { name: "Online BCOM", href: "/corporate-training" },
           ],
         },
         {
-          id: "subjects",
-          name: "Subjects",
+          id: "Online PG Courses",
+          name: "Online PG Courses",
           items: [
-            { name: "Business & MBA", href: "/subjects/business" },
-            { name: "Technology & IT", href: "/subjects/technology" },
-            { name: "Data Science", href: "/subjects/data-science" },
+            { name: "MBA", href: "/subjects/business" },
+            { name: "MCA", href: "/subjects/technology" },
+            { name: "MA", href: "/subjects/data-science" },
+            { name: "MSC", href: "/subjects/data-science" },
+            { name: "MCOM", href: "/subjects/data-science" },
           ],
         },
         {
-          id: "company",
-          name: "Company",
+          id: "Popular Courses",
+          name: "Popular Courses",
           items: [
-            { name: "About Us", href: "/about" },
-            { name: "Blog", href: "/blog" },
-            { name: "Careers", href: "/careers" },
+            { name: "IIM K HR Analytics", href: "/about" },
+            { name: "1 Year MBA - O.P Jindal", href: "/blog" },
+            { name: "Online DBA - Rushford", href: "/careers" },
+            { name: "GGU Gen Ai", href: "/careers" },
+            { name: "IIM K AI Professional", href: "/careers" },
           ],
         },
         {

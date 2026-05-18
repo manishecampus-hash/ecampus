@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 import { universities } from "@/data/universities";
 
 export default function UniversitySection() {
@@ -23,13 +25,15 @@ export default function UniversitySection() {
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
           Our Partner Universities
         </h2>
+
         <div className="h-1 w-12 bg-red-600 mx-auto mt-3 rounded-full" />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-6xl mx-auto">
         {displayedUniversities.map((uni, index) => (
-          <div
+          <Link
             key={index}
+            href={`/universities/${uni.slug}`}
             className="group flex flex-col items-center justify-center p-2 rounded-xl border border-gray-100 bg-white hover:shadow-sm transition-all duration-300"
           >
             {/* Logo */}
@@ -53,7 +57,7 @@ export default function UniversitySection() {
             <span className="mt-1 text-[9px] text-gray-400 uppercase tracking-wide">
               {uni.location}
             </span>
-          </div>
+          </Link>
         ))}
       </div>
 

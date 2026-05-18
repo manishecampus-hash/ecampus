@@ -1,5 +1,6 @@
 export const universities = [
   {
+    slug: "amity-university-online",
     name: "Amity University Online",
     courses: "17 UG • 20 PG",
     location: "Noida",

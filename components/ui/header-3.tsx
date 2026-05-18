@@ -2430,7 +2430,6 @@ const companyLinks2 = [
   { title: "Terms of Service", href: "#", Icon: FileText },
   { title: "Privacy Policy", href: "#", Icon: Shield },
   { title: "Refund Policy", href: "#", Icon: RotateCcw },
-  { title: "Blog", href: "#", Icon: Leaf },
   { title: "Help Center", href: "#", Icon: HelpCircle },
 ];
 
@@ -2699,8 +2698,8 @@ function MobileMenu({ open }) {
 
         <div className="pt-4 border-t border-gray-100 space-y-1">
           <a
-            href="#"
-            className="block text-sm text-gray-700 px-3 py-2.5 hover:bg-gray-50 rounded-xl font-medium"
+            href="/blog"
+            className="px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
           >
             Blog
           </a>
