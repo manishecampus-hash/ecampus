@@ -1,246 +1,276 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
+  ArrowLeft,
+  ArrowRight,
   Award,
-  ShieldCheck,
+  BadgeCheck,
+  Building2,
   CheckCircle2,
-  HelpCircle,
-  CreditCard,
-  TrendingUp,
-  FileText,
+  Crown,
+  FileCheck2,
+  Landmark,
+  ShieldCheck,
   Sparkles,
-  Info,
+  Trophy,
 } from "lucide-react";
 
-export default function ApprovalsSection() {
-  // Recognition items with individual dynamic properties
-  const recognitionItems = [
-    {
-      id: "ugc",
-      title: "UGC Entrusted",
-      description:
-        "Approved by the University Grants Commission (UGC) to offer full-fledged online degree programs valid globally.",
-      icon: ShieldCheck,
-      color: "text-red-500 bg-red-50 border-red-100",
-    },
+type UniversityKey = "muj" | "mahe" | "smu";
+
+interface RecognitionItem {
+  id: string;
+  label: string;
+  description: string;
+  ribbon?: string;
+  icon: React.ElementType;
+}
+
+const universities: { id: UniversityKey; name: string }[] = [
+  { id: "muj", name: "Manipal University Jaipur" },
+  { id: "mahe", name: "Manipal Academy of Higher Education" },
+  { id: "smu", name: "Sikkim Manipal University" },
+];
+
+const recognitionData: Record<UniversityKey, RecognitionItem[]> = {
+  muj: [
     {
       id: "naac",
-      title: "NAAC A+ Accredited",
-      description:
-        "The university holds a prestigious NAAC A+ grade rating, confirming outstanding academic delivery parameters.",
+      label: "NAAC A+",
+      description: "Rajasthan's 1st NAAC A+ Accredited University",
       icon: Award,
-      color: "text-amber-500 bg-amber-50 border-amber-100",
     },
     {
-      id: "nirf",
-      title: "NIRF Ranked Portfolio",
-      description:
-        "Features prominently in multiple top institutional operational categories of the NIRF rankings framework.",
-      icon: TrendingUp,
-      color: "text-blue-500 bg-blue-50 border-blue-100",
+      id: "qs",
+      label: "QS Ranking",
+      description: "Amongst South Asia's Top Universities (2026)",
+      ribbon: "Rank 195",
+      icon: Trophy,
     },
     {
-      id: "wes",
-      title: "WES Evaluation Clear",
-      description:
-        "Degrees are officially recognized by World Education Services (WES) across USA and Canadian corporate boards.",
-      icon: CheckCircle2,
-      color: "text-emerald-500 bg-emerald-50 border-emerald-100",
+      id: "ugc",
+      label: "UGC Entitled",
+      description: "Online Degrees Equivalent to Campus Degree",
+      icon: Landmark,
     },
     {
       id: "aicte",
-      title: "AICTE Statutory Approvals",
-      description:
-        "AICTE statutory endorsement supports and validates specialized professional technical and management programs.",
-      icon: FileText,
-      color: "text-purple-500 bg-purple-50 border-purple-100",
+      label: "AICTE",
+      description: "AICTE Norms Compliant",
+      icon: BadgeCheck,
     },
     {
-      id: "aiu",
-      title: "AIU Member Status",
-      description:
-        "Recognized officially by the Association of Indian Universities, ensuring global status parity and credit mapping.",
-      icon: Sparkles,
-      color: "text-slate-600 bg-slate-50 border-slate-100",
+      id: "impact",
+      label: "Impact Ranking",
+      description: "Amongst World's Top 400 Universities (2025)",
+      ribbon: "Ranked 301-400",
+      icon: Crown,
     },
-  ];
+    {
+      id: "week",
+      label: "The Week",
+      description: "Amongst Private & Deemed Multidisciplinary Universities",
+      ribbon: "Rank 15",
+      icon: Sparkles,
+    },
+  ],
+  mahe: [
+    {
+      id: "naac",
+      label: "NAAC A++",
+      description: "Recognized for high-quality academic excellence",
+      icon: Award,
+    },
+    {
+      id: "nirf",
+      label: "NIRF Ranked",
+      description: "Consistently ranked among leading Indian institutions",
+      ribbon: "Top Ranked",
+      icon: Trophy,
+    },
+    {
+      id: "ugc",
+      label: "UGC Entitled",
+      description: "Online learning programs recognized by UGC",
+      icon: Landmark,
+    },
+    {
+      id: "degree",
+      label: "Valid Degree",
+      description: "Online degree validity equivalent to regular mode",
+      icon: FileCheck2,
+    },
+    {
+      id: "global",
+      label: "Global Recognition",
+      description: "Accepted for professional and higher education pathways",
+      icon: Building2,
+    },
+    {
+      id: "quality",
+      label: "Academic Quality",
+      description: "Strong curriculum, faculty, and student support system",
+      icon: CheckCircle2,
+    },
+  ],
+  smu: [
+    {
+      id: "ugc",
+      label: "UGC Entitled",
+      description: "Approved for online higher education programs",
+      icon: Landmark,
+    },
+    {
+      id: "naac",
+      label: "NAAC Accredited",
+      description: "Accredited institution with recognized academic systems",
+      icon: Award,
+    },
+    {
+      id: "approved",
+      label: "Recognized University",
+      description: "Degree programs accepted for career progression",
+      icon: ShieldCheck,
+    },
+    {
+      id: "online",
+      label: "Online Learning",
+      description: "Flexible learning mode for working professionals",
+      icon: Sparkles,
+    },
+    {
+      id: "career",
+      label: "Career Ready",
+      description: "Curriculum aligned with industry-focused outcomes",
+      icon: BadgeCheck,
+    },
+    {
+      id: "support",
+      label: "Learner Support",
+      description: "Structured student support and digital learning assistance",
+      icon: CheckCircle2,
+    },
+  ],
+};
+
+export default function ApprovalsSection() {
+  const [activeUniversity, setActiveUniversity] =
+    useState<UniversityKey>("muj");
+
+  const activeIndex = universities.findIndex(
+    (university) => university.id === activeUniversity,
+  );
+
+  const activeRecognitions = useMemo(
+    () => recognitionData[activeUniversity],
+    [activeUniversity],
+  );
+
+  const goToPrevious = () => {
+    const previousIndex =
+      activeIndex === 0 ? universities.length - 1 : activeIndex - 1;
+
+    setActiveUniversity(universities[previousIndex].id);
+  };
+
+  const goToNext = () => {
+    const nextIndex =
+      activeIndex === universities.length - 1 ? 0 : activeIndex + 1;
+
+    setActiveUniversity(universities[nextIndex].id);
+  };
 
   return (
-    /* ============================================================
-        RECOGNITION, ELIGIBILITY, & FEES SECTION
-       ============================================================ */
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-      {/* 1. TOP PORTION: RECOGNITION & APPROVALS GRID MATRIX */}
-      <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-          Recognition & <span className="text-red-500">Approvals</span>
-        </h2>
-      </div>
+    <section className="bg-white px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+              Recognition & <span className="text-red-500">Approvals</span>
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
+              Explore key accreditations, rankings, and academic recognitions
+              for online degree programs.
+            </p>
+          </div>
 
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {recognitionItems.map((item) => {
-            const IconComponent = item.icon;
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={goToPrevious}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-gray-900 shadow-sm transition hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+              aria-label="Previous university"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={goToNext}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-gray-900 shadow-sm transition hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+              aria-label="Next university"
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-9 flex flex-wrap gap-5">
+          {universities.map((university) => {
+            const isActive = activeUniversity === university.id;
+
             return (
-              <div
-                key={item.id}
-                className="flex gap-4 rounded-2xl border border-transparent p-4 transition-all duration-300 hover:border-slate-100 hover:bg-slate-50/50"
+              <button
+                key={university.id}
+                type="button"
+                onClick={() => setActiveUniversity(university.id)}
+                className={`rounded-full border px-6 py-3 text-sm font-black transition sm:text-base ${
+                  isActive
+                    ? "border-gray-900 bg-gray-900 text-white shadow-md"
+                    : "border-slate-200 bg-white text-gray-800 hover:border-red-200 hover:text-red-500"
+                }`}
               >
-                <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${item.color}`}
-                >
-                  <IconComponent className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-gray-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 text-xs text-gray-500 leading-relaxed font-medium">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
+                {university.name}
+              </button>
             );
           })}
         </div>
-      </div>
 
-      {/* 2. BOTTOM PORTION: ELIGIBILITY & FEES STRUCTURE SPLIT MATRIX */}
-      <div className="mt-8 grid gap-8 md:grid-cols-2">
-        {/* LEFT CARD COLUMN: ELIGIBILITY CRITERIA CARD BOX */}
-        <div className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <div className="border-b border-slate-100 pb-4 text-center">
-            <h3 className="inline-flex items-center gap-2 text-2xl font-bold text-gray-900">
-              Eligibility <span className="text-red-500">Criteria</span>
-            </h3>
-          </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {activeRecognitions.map((item) => {
+            const Icon = item.icon;
 
-          <div className="mt-6 flex-1 space-y-6">
-            {/* Subsection UG */}
-            <div>
-              <h4 className="text-sm font-extrabold uppercase tracking-wider text-slate-400 mb-3">
-                For Online Undergraduate Programs
-              </h4>
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    10+2 or equivalent qualifications from any recognized board.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    No rigid age limitation caps enforced for academic
-                    admission.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    Open to freshers as well as corporate working professionals.
-                  </span>
-                </li>
-              </ul>
-            </div>
+            return (
+              <article
+                key={item.id}
+                className="relative flex min-h-[310px] flex-col items-center rounded-lg border border-slate-200 bg-slate-50 px-5 pb-6 pt-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-red-100 hover:bg-white hover:shadow-[0_14px_36px_rgba(239,68,68,0.12)]"
+              >
+                {item.ribbon && (
+                  <div className="absolute -top-1 left-1/2 z-10 -translate-x-1/2">
+                    <div className="relative bg-red-600 px-7 py-1.5 text-sm font-black text-white shadow-sm">
+                      {item.ribbon}
+                      <span className="absolute left-[-13px] top-0 h-0 w-0 border-b-[17px] border-r-[13px] border-t-[17px] border-b-transparent border-r-red-600 border-t-transparent" />
+                      <span className="absolute right-[-13px] top-0 h-0 w-0 border-b-[17px] border-l-[13px] border-t-[17px] border-b-transparent border-l-red-600 border-t-transparent" />
+                    </div>
+                  </div>
+                )}
 
-            {/* Subsection PG */}
-            <div className="border-t border-slate-50 pt-5">
-              <h4 className="text-sm font-extrabold uppercase tracking-wider text-slate-400 mb-3">
-                For Online Postgraduate Programs
-              </h4>
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    Bachelor's degree or equivalent milestone from a recognized
-                    university.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    No specialized secondary entrance examination portfolio
-                    cutoffs required.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5 text-sm font-semibold text-gray-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
-                  <span>
-                    Optimized for corporate executives, startup entrepreneurs,
-                    and active career upgraders.
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+                <div className="mt-3 flex h-36 w-full items-center justify-center rounded-2xl bg-white shadow-sm">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-red-50 text-red-500">
+                    <Icon className="h-10 w-10" />
+                  </div>
+                </div>
 
-        {/* RIGHT CARD COLUMN: FEES STRUCTURE DATA BOX */}
-        <div className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <div className="border-b border-slate-100 pb-4 text-center">
-            <h3 className="inline-flex items-center gap-2 text-2xl font-bold text-gray-900">
-              Fees <span className="text-red-500">Structure</span>
-            </h3>
-          </div>
+                <h3 className="mt-6 text-base font-black text-gray-900">
+                  {item.label}
+                </h3>
 
-          <div className="mt-6 flex-1 flex flex-col justify-between">
-            <div>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Online University operations offer highly affordable,
-                competitive, and flexible fee structures, rendering premium
-                global higher education fully accessible to cross-functional
-                global learners.
-              </p>
-
-              {/* Fee Ranges Data Blocks */}
-              <div className="mt-6 rounded-2xl bg-slate-50 p-4 border border-slate-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  Estimated Online Tuition Ranges
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center justify-between border-b border-slate-200/60 pb-2 text-sm">
-                    <span className="font-semibold text-gray-700">
-                      Online UG Programs Portfolio
-                    </span>
-                    <span className="font-bold text-gray-900">
-                      ₹16,500 – ₹30,000{" "}
-                      <span className="text-[10px] text-slate-400">/sem*</span>
-                    </span>
-                  </li>
-                  <li className="flex items-center justify-between text-sm">
-                    <span className="font-semibold text-gray-700">
-                      Online PG Programs Portfolio
-                    </span>
-                    <span className="font-bold text-gray-900">
-                      ₹33,000 – ₹50,000{" "}
-                      <span className="text-[10px] text-slate-400">/sem*</span>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Terms Warning Note block */}
-              <div className="mt-5 flex gap-2.5 rounded-xl border border-amber-100 bg-amber-50/30 p-3.5 text-xs font-medium text-slate-600 leading-relaxed">
-                <Info className="h-4 w-4 shrink-0 text-amber-500 mt-0.5" />
-                <span>
-                  Programmatic costs vary selectively based upon your specific
-                  chosen specialization track. Fee components are competitive
-                  and subject to adjustments as per structural university
-                  guidelines.
-                </span>
-              </div>
-            </div>
-
-            {/* Lower bottom metadata tag */}
-            <div className="mt-6 flex items-center gap-2 border-t border-slate-100 pt-4 text-xs font-bold text-slate-400 uppercase tracking-wider">
-              <CreditCard className="h-4 w-4 text-red-500" />
-              <span>
-                Easy structured installment and EMI options available.*
-              </span>
-            </div>
-          </div>
+                <p className="mt-3 text-sm font-medium leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import HeroSection from "@/components/universities/hero-section";
 import OverviewSection from "@/components/universities/overview-section";
-import CoursesSection from "@/components/universities/courses-section";
+// import CoursesSection from "@/components/universities/courses-section";
 import FAQSection from "@/components/universities/faq-section";
 
 import { universities } from "@/data/universities";
@@ -12,6 +12,7 @@ import TopSpecializations from "@/components/universities/top-secializations";
 import ApprovalsSection from "@/components/universities/approvals";
 import PlacementPartners from "@/components/universities/placement-partners";
 import { Footer } from "@/components/footer";
+import TestimonialsSection from "@/components/universities/testimonials";
 // import WhyOnline from "@/components/universities/why-online";
 
 interface UniversityPageProps {
@@ -38,10 +39,11 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
       <TopSpecializations university={university} />
       <ApprovalsSection university={university} />
       <PlacementPartners university={university} />
+      <TestimonialsSection university={university} />
 
       {/* <WhyOnline university={university} /> */}
 
-      <CoursesSection university={university} />
+      {/* <CoursesSection university={university} /> */}
 
       <FAQSection university={university} />
       <Footer />
