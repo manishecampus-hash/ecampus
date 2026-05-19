@@ -10,7 +10,9 @@ import AboutProgram from "@/components/universities/about";
 import ProgramsSection from "@/components/universities/programs";
 import TopSpecializations from "@/components/universities/top-secializations";
 import ApprovalsSection from "@/components/universities/approvals";
-import WhyOnline from "@/components/universities/why-online";
+import PlacementPartners from "@/components/universities/placement-partners";
+import { Footer } from "@/components/footer";
+// import WhyOnline from "@/components/universities/why-online";
 
 interface UniversityPageProps {
   params: Promise<{
@@ -35,11 +37,14 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
       <ProgramsSection university={university} />
       <TopSpecializations university={university} />
       <ApprovalsSection university={university} />
-      <WhyOnline university={university} />
+      <PlacementPartners university={university} />
+
+      {/* <WhyOnline university={university} /> */}
 
       <CoursesSection university={university} />
 
       <FAQSection university={university} />
+      <Footer />
     </main>
   );
 }

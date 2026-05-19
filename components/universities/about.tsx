@@ -1,142 +1,194 @@
 "use client";
 
-import React from "react";
-import {
-  ShieldCheck,
-  Sparkles,
-  Briefcase,
-  GraduationCap,
-  Layers,
-  ArrowUpRight,
-  CheckCircle2,
-  BookOpen,
-} from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { CheckCircle2, ChevronRight } from "lucide-react";
 
-interface AboutProgramProps {
-  university?: {
-    name?: string;
-    fullName?: string;
-  };
-}
+type TabKey =
+  | "Program Overview"
+  | "Skills You Will Learn"
+  | "Eligibility"
+  | "Who is this Program for"
+  | "Program Fee";
 
-export default function AboutProgram({ university }: AboutProgramProps) {
-  const universityName = university?.name || "Amity Online";
-  const universityFullName = university?.fullName || "Amity University Online";
+const tabContent: Record<
+  TabKey,
+  {
+    heading: string;
+    subtext: string;
+    list: string[];
+  }
+> = {
+  "Program Overview": {
+    heading: "Program <span class='text-red-600'>Overview</span>",
+    subtext:
+      "The IIM Kozhikode HR Analytics programme is designed for working professionals who want to combine human resource leadership with analytical decision-making. The curriculum integrates strategic HR frameworks, business context, and modern analytics tools to help learners solve workforce challenges through data-driven insights.",
+    list: [
+      "Executive education from IIM Kozhikode",
+      "Live faculty-led online sessions",
+      "Industry-oriented case studies and practical applications",
+      "Hands-on exposure to HR analytics tools and dashboards",
+      "Flexible learning format for working professionals",
+      "Capstone-based applied learning experience",
+    ],
+  },
 
-  const pillars = [
-    {
-      id: "academics",
-      title: "Academic Excellence",
-      description:
-        "Nurturing top-tier global talent with a robust, research-driven curriculum structurally built for career innovation.",
-      icon: GraduationCap,
-    },
-    {
-      id: "industry",
-      title: "Industry-Focused Pathways",
-      description:
-        "Practical learning programs spanning across Management, Commerce, Computer Applications, and Sciences.",
-      icon: Briefcase,
-    },
-    {
-      id: "delivery",
-      title: "Flexible Online Delivery",
-      description:
-        "Immersive virtual learning ecosystem designed to fit your routine without compromising rigorous educational standards.",
-      icon: Layers,
-    },
-  ];
+  "Skills You Will Learn": {
+    heading: "Skills You Will <span class='text-red-600'>Learn</span>",
+    subtext:
+      "Develop practical capabilities required to lead modern HR functions where business strategy, people management, and analytics work together.",
+    list: [
+      "Strategic HR management and business alignment",
+      "People analytics and workforce intelligence",
+      "Data interpretation and dashboard reporting",
+      "Talent acquisition and retention analytics",
+      "Performance measurement frameworks",
+      "Compensation and workforce planning",
+      "Predictive modelling for HR decision-making",
+      "AI-enabled human capital insights",
+    ],
+  },
+
+  Eligibility: {
+    heading: "Minimum <span class='text-red-600'>Eligibility</span>",
+    subtext:
+      "The programme is intended for professionals who wish to strengthen analytical thinking within HR, people strategy, and organisational decision-making.",
+    list: [
+      "Bachelor’s degree (10+2+3) from a recognised university",
+      "Diploma holders with relevant professional experience may also apply",
+      "Minimum one year of work experience preferred",
+      "Suitable for HR, operations, consulting, and business professionals",
+      "Basic familiarity with business functions is beneficial",
+      "No prior analytics background required",
+    ],
+  },
+
+  "Who is this Program for": {
+    heading: "Who Can <span class='text-red-600'>Pursue This Program?</span>",
+    subtext:
+      "Ideal for professionals aiming to move beyond traditional HR execution and build strategic capability through data-backed decision-making.",
+    list: [
+      "HR executives and people managers",
+      "Mid-career professionals transitioning into strategic HR roles",
+      "Business leaders managing workforce decisions",
+      "Analysts interested in people and organisational data",
+      "Entrepreneurs building high-performance teams",
+      "Professionals preparing for leadership roles in HR",
+    ],
+  },
+
+  "Program Fee": {
+    heading: "Program <span class='text-red-600'>Fee & Investment</span>",
+    subtext:
+      "The programme fee is structured to provide strong long-term career value while offering flexibility for professionals balancing work and learning commitments.",
+    list: [
+      "Transparent fee structure with no hidden charges",
+      "Flexible payment and instalment options",
+      "EMI facilities available through supported partners",
+      "Access to live sessions, learning materials, and assessments",
+      "Certificate awarded upon successful completion",
+      "Strong long-term career ROI through executive upskilling",
+    ],
+  },
+};
+
+const tabs = Object.keys(tabContent) as TabKey[];
+
+export default function AboutProgram() {
+  const [activeTab, setActiveTab] = useState<TabKey>("Skills You Will Learn");
+
+  const currentContent = useMemo(() => tabContent[activeTab], [activeTab]);
 
   return (
-    /* ============================================================
-        ABOUT SECTION — AMITY UNIVERSITY ONLINE
-        Centered narrative architecture emphasizing institutional pedigree
-       ============================================================ */
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-      {/* Centered Intro Card Container */}
-      <div className="relative mx-auto max-w-4xl text-center">
-        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600">
-          <Sparkles className="h-3.5 w-3.5" />
-          About The University
-        </span>
+    <section className="bg-white px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <span className="mb-4 inline-flex rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600">
+            About
+          </span>
 
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl leading-tight">
-          Nurturing Talent, Creating <br />
-          <span className="text-red-500">Future-Ready Professionals</span>
-        </h2>
+          <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800 sm:text-4xl lg:text-4xl">
+            About IIM K HR Analytics Course
+          </h2>
 
-        <p className="mt-6 text-base text-gray-600 leading-relaxed sm:text-xl">
-          <strong className="text-gray-900">{universityFullName}</strong> is one
-          of India’s leading private universities, widely recognized for its
-          academic excellence, global outlook, and industry-aligned frameworks.
-          The institution offers a diverse portfolio of undergraduate and
-          postgraduate programs across multiple digital disciplines.
-        </p>
-      </div>
-
-      {/* Center Spotlight Accreditations & Compliance Callouts */}
-      <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
-        <div className="flex items-center gap-3.5 rounded-2xl border border-red-100 bg-red-50/20 p-5 shadow-sm">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-500 text-white">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div className="text-left">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 block">
-              Accreditation
-            </span>
-            <p className="text-sm font-bold text-gray-900 sm:text-base">
-              UGC-Approved & NAAC Accredited Status
-            </p>
-          </div>
+          <p className="mt-4 text-sm leading-7 text-slate-500 sm:text-base">
+            Empowering HR professionals with data-driven insights and strategic
+            decision-making capabilities.
+          </p>
         </div>
 
-        <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-slate-300 transition-colors">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
-            <BookOpen className="h-5 w-5" />
+        {/* Main layout */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+          {/* Sidebar */}
+          <div className="lg:col-span-4">
+            <div className="flex flex-col gap-2 rounded-3xl border border-slate-100 bg-white p-2">
+              {tabs.map((tab) => {
+                const active = activeTab === tab;
+
+                return (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    className={`group flex w-full items-center justify-between rounded-2xl px-4 py-4 text-left text-sm font-semibold transition-all duration-200 sm:text-[15px] ${
+                      active
+                        ? "bg-red-50 text-red-600 shadow-sm"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    <span className="pr-3 leading-snug">{tab}</span>
+
+                    <ChevronRight
+                      className={`h-4 w-4 shrink-0 transition-all duration-200 ${
+                        active
+                          ? "translate-x-1 opacity-100"
+                          : "opacity-0 group-hover:opacity-60"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <div className="text-left">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-              Focus Metrics
-            </span>
-            <p className="text-sm font-bold text-gray-900 sm:text-base">
-              Strong Emphasis on Research & Innovation
-            </p>
-          </div>
-        </div>
-      </div>
 
-      {/* 3-Column Core Institutional Value Matrix Stack */}
-      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {pillars.map((pillar) => {
-          const IconComponent = pillar.icon;
-          return (
-            <div
-              key={pillar.id}
-              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl hover:shadow-slate-100/80"
-            >
-              <div>
-                {/* Icon Box with active hover state transitions */}
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500 transition-all duration-300">
-                  <IconComponent className="h-5 w-5" />
-                </div>
+          {/* Content */}
+          <div className="lg:col-span-8">
+            <div className="rounded-[28px] border border-slate-100 bg-slate-50 p-6 shadow-sm sm:p-8 lg:min-h-[520px] lg:p-12">
+              <div
+                key={activeTab}
+                className="animate-in fade-in slide-in-from-right-4 duration-300"
+              >
+                <h3
+                  className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl lg:text-4xl"
+                  dangerouslySetInnerHTML={{
+                    __html: currentContent.heading,
+                  }}
+                />
 
-                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-red-500">
-                  {pillar.title}
-                </h3>
-
-                <p className="mt-2.5 text-sm text-gray-600 leading-relaxed">
-                  {pillar.description}
+                <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
+                  {currentContent.subtext}
                 </p>
-              </div>
 
-              {/* Verified verification bottom label line */}
-              <div className="mt-6 flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-wide border-t border-slate-50 pt-4">
-                <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />
-                <span>{universityName} Standard</span>
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {currentContent.list.map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl bg-white px-4 py-4 shadow-sm"
+                    >
+                      <div className="mt-0.5 rounded-full border border-red-100 bg-red-50 p-1">
+                        <CheckCircle2 className="h-4 w-4 text-red-500" />
+                      </div>
+
+                      <span className="text-sm font-medium leading-6 text-slate-700 sm:text-base">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
     </section>
   );

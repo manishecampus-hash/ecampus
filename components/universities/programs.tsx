@@ -1,254 +1,269 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import {
-  Sparkles,
-  GraduationCap,
+  Star,
   Layers,
-  Target,
-  Briefcase,
-  TrendingUp,
-  Globe2,
-  CheckCircle2,
+  Clock,
+  IndianRupee,
+  CreditCard,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
 
-interface WhyOnlineProps {
-  university?: {
-    name?: string;
-  };
+interface ProgramCardProps {
+  id: string;
+  badge: string;
+  title: string;
+  rating: number;
+  image: string;
+  specializationsCount: number;
+  durationMonths: number;
+  totalFees: string;
+  emiStarting: string;
+  slug: string;
 }
 
-export default function WhyOnline({ university }: WhyOnlineProps) {
-  const universityName = university?.name || "Amity University Online";
-  const [activeIndex, setActiveIndex] = useState(0);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+export default function ProgramsSection() {
+  // Define active active programmatic navigation tab
+  const [activeTab, setActiveTab] = useState<"ug" | "pg" | "specs">("ug");
 
-  const coreFeatures = [
-    {
-      id: "future-ready",
-      title: "Future-Ready Education",
-      description:
-        "Programs designed to match evolving industry trends and cutting-edge operational frameworks.",
-      icon: Layers,
-    },
-    {
-      id: "personalized-path",
-      title: "Personalized Learning Path",
-      description:
-        "Study plans tailored to individual goals and pace to maximize long-term learning outcomes.",
-      icon: Target,
-    },
-    {
-      id: "skill-centric",
-      title: "Skill-Centric Approach",
-      description:
-        "Focus on building practical, employable skills beyond classic purely academic curriculum structures.",
-      icon: Briefcase,
-    },
-    {
-      id: "career-support",
-      title: "Career Enhancement Support",
-      description:
-        "Comprehensive tools, structured resume metrics guidance, and counseling to boost your overall employability and career confidence.",
-      icon: TrendingUp,
-    },
-    {
-      id: "recognized-degrees",
-      title: "Recognized Online Degrees",
-      description:
-        "Earn a premium digital credential valued highly by major corporate employers and diverse industries worldwide.",
-      icon: Globe2,
-    },
+  // Tab configurations array mapping names to states
+  const tabs = [
+    { id: "ug", label: "UG Courses" },
+    { id: "pg", label: "PG Courses" },
+    { id: "specs", label: "Top Specializations" },
   ];
 
-  useEffect(() => {
-    /*
-      IntersectionObserver with rootMargin trick:
-      - Top margin = -(viewport height * 0.3) — ignore top 30%
-      - Bottom margin = -(viewport height * 0.4) — ignore bottom 40%
-      - This creates a "sweet spot" band in the middle of the screen.
-      - Whichever feature card enters this band becomes active.
-    */
-    const updateActive = () => {
-      const vh = window.innerHeight;
-      const band = vh * 0.35; // center band = 35% from top to 65%
+  // Dynamic datasets structured mimicking production schemas cleanly
+  const programsData = {
+    ug: [
+      {
+        id: "bba",
+        badge: "BBA (Amity Online)",
+        title: "Online BBA Degree",
+        rating: 4.7,
+        image:
+          "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 4,
+        durationMonths: 36,
+        totalFees: "1,65,000 INR",
+        emiStarting: "4,583 INR",
+        slug: "#",
+      },
+      {
+        id: "bcom",
+        badge: "BCOM (Amity Online)",
+        title: "Online B.Com Degree",
+        rating: 4.7,
+        image:
+          "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 3,
+        durationMonths: 36,
+        totalFees: "99,000 INR",
+        emiStarting: "2,750 INR",
+        slug: "#",
+      },
+      {
+        id: "bca",
+        badge: "BCA (Amity Online)",
+        title: "Online BCA Degree",
+        rating: 4.7,
+        image:
+          "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 3,
+        durationMonths: 36,
+        totalFees: "1,50,000 INR",
+        emiStarting: "4,166 INR",
+        slug: "#",
+      },
+      {
+        id: "ba",
+        badge: "BA (Amity Online)",
+        title: "Online BA Degree",
+        rating: 4.7,
+        image:
+          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 6,
+        durationMonths: 36,
+        totalFees: "85,000 INR",
+        emiStarting: "3,431 INR",
+        slug: "#",
+      },
+    ],
+    pg: [
+      {
+        id: "mba",
+        badge: "MBA (Amity Online)",
+        title: "Online MBA Degree",
+        rating: 4.8,
+        image:
+          "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 12,
+        durationMonths: 24,
+        totalFees: "2,50,000 INR",
+        emiStarting: "6,944 INR",
+        slug: "#",
+      },
+      {
+        id: "mca",
+        badge: "MCA (Amity Online)",
+        title: "Online MCA Degree",
+        rating: 4.7,
+        image:
+          "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=60",
+        specializationsCount: 5,
+        durationMonths: 24,
+        totalFees: "1,80,000 INR",
+        emiStarting: "5,000 INR",
+        slug: "#",
+      },
+    ],
+    specs: [
+      {
+        id: "spec-ai",
+        badge: "Data Science (Amity Online)",
+        title: "BCA with AI & Machine Learning",
+        rating: 4.9,
+        image: "",
+        specializationsCount: 1,
+        durationMonths: 36,
+        totalFees: "1,95,000 INR",
+        emiStarting: "5,416 INR",
+        slug: "#",
+      },
+    ],
+  };
 
-      let closestIndex = 0;
-      let closestDistance = Infinity;
-
-      itemRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const elCenter = rect.top + rect.height / 2;
-        const screenCenter = vh / 2;
-        const distance = Math.abs(elCenter - screenCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = i;
-        }
-      });
-
-      setActiveIndex(closestIndex);
-    };
-
-    // Run on scroll
-    window.addEventListener("scroll", updateActive, { passive: true });
-    // Run once on mount
-    updateActive();
-
-    return () => window.removeEventListener("scroll", updateActive);
-  }, []);
+  // Switch context baseline arrays dynamically based on tab activation
+  const activePrograms: ProgramCardProps[] = programsData[activeTab];
 
   return (
+    /* ============================================================
+        PROGRAMS EXPLORER GRID CONTAINER SECTION
+       ============================================================ */
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-      <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
-        {/* ── LEFT: STICKY DEGREE CARD ── */}
-        <div className="w-full lg:w-5/12 lg:sticky lg:top-[112px] flex-shrink-0">
-          <div className="rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-slate-50/50 p-6 shadow-xl shadow-slate-100/80 sm:p-8">
-            <div className="mb-6 text-center lg:text-left">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-                Verified Asset
-              </span>
-              <h3 className="text-lg font-bold text-gray-900">
-                Globally Accepted Degree
-              </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                Internationally aligned programs designed to meet elite global
-                standards.
-              </p>
-            </div>
+      {/* Dynamic Header Architecture centered */}
+      <div className="mb-10 text-center">
+        <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600">
+          <Sparkles className="h-3.5 w-3.5" />
+          Education Catalog
+        </span>
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
+          Amity Online <span className="text-red-500">Programs</span>
+        </h2>
+      </div>
 
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-[280px] rounded-xl border-[10px] border-slate-900 bg-amber-50/15 p-4 shadow-lg ring-1 ring-slate-900/10">
-              <div className="h-full w-full border border-amber-800/15 p-2.5 flex flex-col justify-between text-center relative overflow-hidden bg-white/70">
-                <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-                  <GraduationCap className="h-32 w-32 text-slate-900" />
+      {/* Interactive Tabs Menu Control Line Array Toggle */}
+      <div className="mx-auto mb-12 flex max-w-3xl justify-center rounded-2xl bg-slate-50 p-2 border border-slate-100">
+        <div className="grid w-full grid-cols-3 gap-2">
+          {tabs.map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`rounded-xl py-3 text-sm font-bold transition-all duration-200 ${
+                  isSelected
+                    ? "bg-red-500 text-white shadow-md shadow-red-100"
+                    : "text-slate-600 hover:bg-white hover:text-gray-900"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Program Cards Layout Grid Architecture Matrix */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {activePrograms.map((program) => (
+          <div
+            key={program.id}
+            className="flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-100"
+          >
+            <div>
+              {/* Card Image Area + Floating Indicators absolute contextual setups */}
+              <div className="relative h-48 w-full overflow-hidden rounded-2xl bg-slate-100">
+                <img
+                  src={program.image}
+                  alt={program.title}
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                />
+
+                {/* Lower left pill yellow label dynamic text badge tracking */}
+                <div className="absolute bottom-3 left-3 rounded-lg bg-amber-100 px-2.5 py-1 text-xs font-extrabold text-amber-800 border border-amber-200 shadow-sm">
+                  {program.badge}
                 </div>
-                <div className="space-y-1 relative z-10">
-                  <div className="mx-auto h-3.5 w-3.5 rounded-full bg-slate-200" />
-                  <p className="text-[8px] font-black uppercase tracking-wider text-slate-800">
-                    Amity University
-                  </p>
-                  <p className="text-[4px] font-bold text-slate-400 uppercase tracking-widest">
-                    Uttar Pradesh
-                  </p>
+
+                {/* Floating dynamic star review floating layout block tag right bottom */}
+                <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-lg bg-white px-2 py-0.5 text-xs font-bold text-gray-900 shadow-sm ring-1 ring-slate-100">
+                  <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                  <span>{program.rating}</span>
                 </div>
-                <div className="my-auto space-y-1.5 relative z-10">
-                  <p className="text-[5px] font-medium text-slate-400">
-                    On recommendation of the academic council hereby confers the
-                    degree of
-                  </p>
-                  <p className="text-[9px] font-bold text-gray-900 border-b border-slate-200 pb-0.5 max-w-[110px] mx-auto">
-                    Graduate Scholar
-                  </p>
-                  <p className="text-[8px] font-extrabold text-red-600 uppercase tracking-wide">
-                    Master of Business Administration
-                  </p>
+              </div>
+
+              {/* Title Section content context block */}
+              <h3 className="mt-4 text-lg font-bold text-gray-900 tracking-tight leading-snug min-h-[3.5rem] flex items-center">
+                {program.title}
+              </h3>
+
+              {/* Structural Bullet Matrix Details Parameters */}
+              <div className="mt-4 space-y-3 border-t border-slate-50 pt-4">
+                <div className="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                  <Layers className="h-4 w-4 text-slate-500 shrink-0" />
+                  <span className="text-slate-500 font-medium">
+                    Specializations:
+                  </span>
+                  <span className="text-gray-900 font-bold">
+                    {program.specializationsCount}
+                  </span>
                 </div>
-                <div className="flex items-end justify-between relative z-10">
-                  <div className="text-left">
-                    <div className="h-1 w-6 border-b border-slate-200" />
-                    <p className="text-[3px] font-bold uppercase text-slate-400 mt-0.5">
-                      Registrar
-                    </p>
-                  </div>
-                  <div className="h-5 w-5 rounded-full bg-red-500 flex items-center justify-center">
-                    <div className="h-3 w-3 rounded-full border border-dashed border-white/20" />
-                  </div>
-                  <div className="text-right">
-                    <div className="h-1 w-6 border-b border-slate-200" />
-                    <p className="text-[3px] font-bold uppercase text-slate-400 mt-0.5">
-                      Vice Chancellor
-                    </p>
-                  </div>
+
+                <div className="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                  <Clock className="h-4 w-4 text-slate-500 shrink-0" />
+                  <span className="text-slate-500 font-medium">Duration:</span>
+                  <span className="text-gray-900 font-bold">
+                    {program.durationMonths} months
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                  <IndianRupee className="h-4 w-4 text-slate-500 shrink-0" />
+                  <span className="text-slate-500 font-medium">
+                    Total Fees:
+                  </span>
+                  <span className="text-gray-900 font-bold">
+                    {program.totalFees}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                  <CreditCard className="h-4 w-4 text-slate-500 shrink-0" />
+                  <span className="text-slate-500 font-medium">EMI/month:</span>
+                  <span className="text-red-500 font-bold">
+                    Starting {program.emiStarting}
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-5 flex items-center justify-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
-              <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
-              <span>100% Secure Student Credentials</span>
+            {/* Redesigned Clean Action Trigger Wrapper Button bottom tracking */}
+            <div className="mt-6">
+              <Link
+                href={program.slug}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white py-2.5 text-sm font-bold text-red-500 transition-all hover:bg-red-500 hover:text-white active:scale-[0.98]"
+              >
+                Explore More
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-        </div>
-
-        {/* ── RIGHT: SCROLLABLE CONTENT ── */}
-        <div className="w-full lg:w-7/12">
-          {/* Heading & Description */}
-          <div className="mb-10">
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600 sm:mb-4">
-              <Sparkles className="h-3.5 w-3.5" />
-              Why Choose Us
-            </span>
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl leading-tight">
-              Why <span className="text-red-500">Amity University</span> Online?
-            </h2>
-            <p className="mt-4 text-base text-gray-600 leading-relaxed sm:text-lg">
-              Choose <strong>{universityName}</strong> for flexible, accredited
-              programs tailored to real-world career growth. Gain practical
-              skills through expert faculty and industry-focused learning. Our
-              advanced digital platform ensures a smooth and engaging learning
-              experience from anywhere.
-            </p>
-          </div>
-
-          {/* Feature Cards — scroll-activated */}
-          <div className="flex flex-col gap-4 border-t border-slate-100 pt-8">
-            {coreFeatures.map((feat, index) => {
-              const IconComponent = feat.icon;
-              const isActive = activeIndex === index;
-
-              return (
-                <div
-                  key={feat.id}
-                  ref={(el) => {
-                    itemRefs.current[index] = el;
-                  }}
-                  className={`
-                    flex gap-4 rounded-2xl border p-5 
-                    transition-all duration-500 ease-in-out
-                    ${
-                      isActive
-                        ? "border-red-100 bg-white shadow-md scale-[1.01]"
-                        : "border-slate-100 bg-white/60 shadow-sm opacity-50"
-                    }
-                  `}
-                >
-                  <div
-                    className={`
-                      flex h-11 w-11 shrink-0 items-center justify-center 
-                      rounded-xl border transition-all duration-500
-                      ${
-                        isActive
-                          ? "bg-red-500 text-white border-red-500"
-                          : "bg-slate-50 text-slate-400 border-slate-100"
-                      }
-                    `}
-                  >
-                    <IconComponent className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3
-                      className={`
-                        text-base font-bold transition-colors duration-500
-                        ${isActive ? "text-red-500" : "text-gray-400"}
-                      `}
-                    >
-                      {feat.title}
-                    </h3>
-                    <p
-                      className={`
-                        mt-1.5 text-sm leading-relaxed font-medium transition-colors duration-500
-                        ${isActive ? "text-gray-600" : "text-gray-400"}
-                      `}
-                    >
-                      {feat.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
