@@ -20,7 +20,7 @@ function CountUpNumber({
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const duration = 1500;
+    const duration = 1400;
     const start = performance.now();
 
     const animate = (time: number) => {
@@ -54,21 +54,16 @@ function CountUpNumber({
 
 export function HeroStatsSection() {
   return (
-    <section className="bg-[#f7f7f7] px-4 py-3">
-      <div className="mx-auto max-w-7xl rounded-2xl border border-gray-100 bg-white px-5 py-3 shadow-[0_10px_28px_rgba(15,23,42,0.05)] sm:px-8">
+    <section className="px-4 py-8">
+      <div className="mx-auto max-w-[1600px] rounded-[18px] border border-gray-100 bg-white px-6 py-4 shadow-[0_18px_45px_rgba(15,23,42,0.06)]">
         <div className="grid grid-cols-1 divide-y divide-gray-100 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {heroStats.map((stat) => (
-            <div
-              key={stat.label}
-              className="group relative overflow-hidden px-4 py-2.5"
-            >
-              <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-0 transition group-hover:opacity-100" />
-
-              <p className="mb-1.5 text-[10px] font-bold uppercase leading-none tracking-[0.35em] text-gray-400">
+            <div key={stat.label} className="px-4 py-4 sm:py-3">
+              <p className="mb-3 text-[11px] font-bold uppercase leading-none tracking-[0.45em] text-gray-400">
                 {stat.label}
               </p>
 
-              <p className="bg-gradient-to-r from-black via-red-600 to-black bg-clip-text text-2xl font-extrabold leading-tight text-transparent sm:text-3xl">
+              <p className="text-4xl font-extrabold leading-none text-red-600 sm:text-[40px]">
                 <CountUpNumber
                   value={stat.value}
                   suffix={stat.suffix}

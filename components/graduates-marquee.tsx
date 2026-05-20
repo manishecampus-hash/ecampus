@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
 
 type GraduateTestimonialT = {
   initials: string;
@@ -59,16 +59,14 @@ const DEFAULT_GRADUATES: GraduateTestimonialT[] = [
   },
 ];
 
-const GAP = 20;
-
 const StarRating = ({ rating }: { rating: number }) => (
-  <div style={{ display: "flex", gap: 2, margin: "4px 0 12px" }}>
+  <div style={{ display: "flex", gap: 2, marginTop: 8 }}>
     {[1, 2, 3, 4, 5].map((star) => (
       <span
         key={star}
         style={{
           color: star <= rating ? "#facc15" : "#e5e7eb",
-          fontSize: 16,
+          fontSize: 14,
           lineHeight: 1,
         }}
       >
@@ -78,188 +76,170 @@ const StarRating = ({ rating }: { rating: number }) => (
   </div>
 );
 
-const Avatar = ({
-  initials,
-  color,
-  src,
+const GraduateTile = ({
+  graduate,
+  tall = false,
 }: {
-  initials: string;
-  color: string;
-  src?: string;
+  graduate: GraduateTestimonialT;
+  tall?: boolean;
 }) => (
   <div
     style={{
-      width: 52,
-      height: 52,
-      borderRadius: "50%",
-      background: color,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "#fff",
-      fontWeight: 700,
-      fontSize: 15,
-      flexShrink: 0,
+      height: tall ? 250 : 180,
+      borderRadius: 10,
       overflow: "hidden",
-      border: "3px solid #fee2e2",
+      background: "#f1f1f1",
+      position: "relative",
+      flexShrink: 0,
     }}
   >
-    {src ? (
+    {graduate.avatarSrc ? (
       <img
-        src={src}
-        alt={initials}
+        src={graduate.avatarSrc}
+        alt={graduate.name}
         style={{
           width: "100%",
           height: "100%",
           objectFit: "cover",
+          objectPosition: "top center",
+          display: "block",
         }}
       />
     ) : (
-      initials
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          background: graduate.avatarColor,
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 28,
+          fontWeight: 800,
+        }}
+      >
+        {graduate.initials}
+      </div>
     )}
+
+    <div
+      style={{
+        position: "absolute",
+        inset: "auto 0 0",
+        padding: 14,
+        background: "linear-gradient(to top, rgba(0,0,0,.72), transparent)",
+        color: "#fff",
+      }}
+    >
+      <p style={{ margin: 0, fontSize: 14, fontWeight: 800 }}>
+        {graduate.name}
+      </p>
+      <p style={{ margin: "2px 0 0", fontSize: 12, opacity: 0.85 }}>
+        {graduate.role}
+      </p>
+      <StarRating rating={graduate.rating} />
+    </div>
   </div>
 );
 
-const GraduateCard = ({
-  testimonial,
-  width,
+const ImageColumn = ({
+  items,
+  reverse = false,
+  offset = 0,
 }: {
-  testimonial: GraduateTestimonialT;
-  width: number;
-}) => {
-  const [expanded, setExpanded] = useState(false);
-  const SHORT_LIMIT = 140;
-  const isLong = testimonial.testimonial.length > SHORT_LIMIT;
-
-  const displayText =
-    !isLong || expanded
-      ? testimonial.testimonial
-      : `${testimonial.testimonial.slice(0, SHORT_LIMIT)}...`;
-
-  return (
+  items: GraduateTestimonialT[];
+  reverse?: boolean;
+  offset?: number;
+}) => (
+  <div style={{ overflow: "hidden", paddingTop: offset }}>
     <div
+      className={reverse ? "graduate-loop-down" : "graduate-loop-up"}
       style={{
-        background: "#fff",
-        border: "1px solid #fee2e2",
-        borderRadius: 16,
-        padding: 20,
-        width,
-        minHeight: 300,
-        flexShrink: 0,
-        boxShadow: "0 10px 28px rgba(15, 23, 42, 0.08)",
         display: "flex",
         flexDirection: "column",
+        gap: 10,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <Avatar
-          initials={testimonial.initials}
-          color={testimonial.avatarColor}
-          src={testimonial.avatarSrc}
+      {[...items, ...items, ...items].map((graduate, index) => (
+        <GraduateTile
+          key={`${graduate.name}-${index}`}
+          graduate={graduate}
+          tall={index % 3 === 1}
         />
-
-        <div style={{ minWidth: 0 }}>
-          <p
-            style={{
-              fontWeight: 800,
-              fontSize: 15,
-              margin: 0,
-              color: "#0f172a",
-            }}
-          >
-            {testimonial.name}
-          </p>
-          <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>
-            {testimonial.role}
-          </p>
-        </div>
-      </div>
-
-      <StarRating rating={testimonial.rating} />
-
-      <p
-        style={{
-          fontSize: 14,
-          color: "#475569",
-          lineHeight: 1.65,
-          margin: 0,
-        }}
-      >
-        {displayText}
-      </p>
-
-      {isLong && (
-        <button
-          type="button"
-          onClick={() => setExpanded((value) => !value)}
-          style={{
-            marginTop: "auto",
-            alignSelf: "flex-start",
-            background: "#fff",
-            border: "1px solid #fecaca",
-            borderRadius: 999,
-            padding: "7px 16px",
-            fontSize: 13,
-            color: "#dc2626",
-            cursor: "pointer",
-            fontWeight: 700,
-          }}
-        >
-          {expanded ? "Show Less" : "Read More"}
-        </button>
-      )}
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export function GraduatesMarquee({
   graduates = DEFAULT_GRADUATES,
 }: {
   graduates?: GraduateTestimonialT[];
 }) {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(320);
-  const [visibleCount, setVisibleCount] = useState(3);
-
-  useEffect(() => {
-    const updateSize = () => {
-      const width = viewportRef.current?.clientWidth ?? 320;
-
-      if (width < 700) {
-        setVisibleCount(1);
-        setCardWidth(Math.min(320, width));
-      } else if (width < 1040) {
-        setVisibleCount(2);
-        setCardWidth((width - GAP) / 2);
-      } else {
-        setVisibleCount(3);
-        setCardWidth((width - GAP * 2) / 3);
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
-  const maxIndex = useMemo(
-    () => Math.max(0, graduates.length - visibleCount),
-    [graduates.length, visibleCount],
+  const firstColumn = [graduates[0], graduates[1], graduates[2]].filter(
+    Boolean,
+  );
+  const secondColumn = [graduates[2], graduates[3], graduates[0]].filter(
+    Boolean,
+  );
+  const thirdColumn = [graduates[1], graduates[3], graduates[2]].filter(
+    Boolean,
   );
 
-  useEffect(() => {
-    setCurrentIndex((index) => Math.min(index, maxIndex));
-  }, [maxIndex]);
-
-  const prev = () => setCurrentIndex((index) => Math.max(0, index - 1));
-  const next = () => setCurrentIndex((index) => Math.min(maxIndex, index + 1));
-
   return (
-    <section style={{ padding: "80px 16px", background: "#fff" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
+    <section
+      style={{ padding: "80px 16px", background: "#fff", overflow: "hidden" }}
+    >
+      <style>
+        {`
+          @keyframes graduateLoopUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
+          }
+
+          @keyframes graduateLoopDown {
+            from { transform: translateY(-50%); }
+            to { transform: translateY(0); }
+          }
+
+          .graduate-loop-up {
+            animation: graduateLoopUp 22s linear infinite;
+          }
+
+          .graduate-loop-down {
+            animation: graduateLoopDown 24s linear infinite;
+          }
+
+          .graduate-loop-up:hover,
+          .graduate-loop-down:hover {
+            animation-play-state: paused;
+          }
+
+          @media (max-width: 900px) {
+            .graduates-grid {
+              grid-template-columns: 1fr !important;
+            }
+
+            .graduates-images {
+              height: 520px !important;
+            }
+          }
+        `}
+      </style>
+
+      <div
+        className="graduates-grid"
+        style={{
+          maxWidth: 1180,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "0.95fr 1.05fr",
+          gap: 48,
+          alignItems: "center",
+        }}
+      >
+        <div>
           <span
             style={{
               display: "inline-block",
@@ -269,7 +249,7 @@ export function GraduatesMarquee({
               borderRadius: 999,
               fontSize: 13,
               fontWeight: 700,
-              marginBottom: 16,
+              marginBottom: 18,
             }}
           >
             Success Stories
@@ -277,112 +257,117 @@ export function GraduatesMarquee({
 
           <h2
             style={{
-              fontSize: "clamp(30px, 4vw, 44px)",
+              fontSize: "clamp(36px, 5vw, 58px)",
+              lineHeight: 1.08,
               fontWeight: 900,
               color: "#0f172a",
-              margin: "0 0 12px",
+              margin: "0 0 18px",
+              letterSpacing: 0,
             }}
           >
-            What Our Graduates Say
+            What Our Graduates{" "}
+            <span
+              style={{
+                fontFamily: "Georgia, serif",
+                fontStyle: "italic",
+                color: "#dc2626",
+              }}
+            >
+              Say
+            </span>
           </h2>
 
           <p
             style={{
-              fontSize: 16,
+              fontSize: 17,
               color: "#64748b",
               maxWidth: 560,
-              margin: "0 auto",
-              lineHeight: 1.6,
+              margin: 0,
+              lineHeight: 1.7,
             }}
           >
             Join thousands of successful graduates who have transformed their
             careers and achieved their goals.
           </p>
-        </div>
 
-        <div ref={viewportRef} style={{ overflow: "hidden", width: "100%" }}>
           <div
             style={{
-              display: "flex",
-              gap: GAP,
-              transform: `translateX(-${currentIndex * (cardWidth + GAP)}px)`,
-              transition: "transform 0.4s ease",
+              marginTop: 34,
+              borderTop: "1px solid #e5e7eb",
+              paddingTop: 26,
+              display: "grid",
+              gap: 18,
             }}
           >
-            {graduates.map((graduate, index) => (
-              <GraduateCard
-                key={index}
-                testimonial={graduate}
-                width={cardWidth}
-              />
+            {graduates.map((graduate) => (
+              <div key={graduate.name}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 15,
+                    color: "#0f172a",
+                    fontWeight: 800,
+                  }}
+                >
+                  {graduate.name}
+                </p>
+                <p
+                  style={{
+                    margin: "3px 0 0",
+                    fontSize: 13,
+                    color: "#64748b",
+                  }}
+                >
+                  {graduate.role}
+                </p>
+              </div>
             ))}
           </div>
         </div>
 
         <div
+          className="graduates-images"
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 16,
-            marginTop: 36,
+            position: "relative",
+            height: 590,
+            overflow: "hidden",
           }}
         >
-          <button
-            type="button"
-            onClick={prev}
-            disabled={currentIndex === 0}
+          <div
             style={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
-              border: "1px solid #fecaca",
-              background: currentIndex === 0 ? "#f8fafc" : "#fff",
-              color: currentIndex === 0 ? "#cbd5e1" : "#dc2626",
-              cursor: currentIndex === 0 ? "not-allowed" : "pointer",
-              fontSize: 22,
+              position: "absolute",
+              inset: "0 0 auto",
+              height: 90,
+              zIndex: 2,
+              background:
+                "linear-gradient(to bottom, #fff, rgba(255,255,255,0))",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              inset: "auto 0 0",
+              height: 90,
+              zIndex: 2,
+              background: "linear-gradient(to top, #fff, rgba(255,255,255,0))",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: 10,
+              height: "100%",
             }}
           >
-            ‹
-          </button>
-
-          <div style={{ display: "flex", gap: 8 }}>
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setCurrentIndex(index)}
-                style={{
-                  width: index === currentIndex ? 24 : 8,
-                  height: 8,
-                  borderRadius: 999,
-                  background: index === currentIndex ? "#dc2626" : "#fecaca",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  transition: "all 0.3s",
-                }}
-              />
-            ))}
+            <ImageColumn items={firstColumn} />
+            <ImageColumn items={secondColumn} reverse offset={42} />
+            <ImageColumn items={thirdColumn} offset={18} />
           </div>
-
-          <button
-            type="button"
-            onClick={next}
-            disabled={currentIndex === maxIndex}
-            style={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
-              border: "1px solid #fecaca",
-              background: currentIndex === maxIndex ? "#f8fafc" : "#fff",
-              color: currentIndex === maxIndex ? "#cbd5e1" : "#dc2626",
-              cursor: currentIndex === maxIndex ? "not-allowed" : "pointer",
-              fontSize: 22,
-            }}
-          >
-            ›
-          </button>
         </div>
       </div>
     </section>

@@ -118,10 +118,9 @@ export function Footer() {
           />
         </Link>
         <p className="bg-transparent text-center text-xs leading-4 text-slate-400 md:text-left">
-          Welcome to Elevate, where we empower learners worldwide with
-          world-class education. We specialize in crafting unique learning
-          experiences, comprehensive online programs, and engaging content that
-          transforms careers.
+          eCampus is a next-generation AI-enabled higher education platform
+          designed to empower learners through UGC-recognized online and global
+          hybrid degree programs offered by top universities across the world.
         </p>
       </div>
 
@@ -213,29 +212,40 @@ export function Footer() {
       </div>
 
       {/* Legal Footer */}
-      <div className="mx-auto mb-10 mt-4 flex flex-col justify-between text-center text-[11px] md:max-w-7xl">
-        <div className="space-x-4 text-slate-500">
-          <Link
-            href="/privacy"
-            className="hover:text-red-500 transition-colors"
-          >
-            Privacy Policy
-          </Link>
-          <span>·</span>
-          <Link href="/terms" className="hover:text-red-500 transition-colors">
-            Terms of Service
-          </Link>
-          <span>·</span>
-          <Link
-            href="/accessibility"
-            className="hover:text-red-500 transition-colors"
-          >
-            Accessibility
-          </Link>
+      <div className="bg-[#1b1e20] px-4 py-8">
+        <div className="mx-auto flex flex-col items-center justify-between gap-4 text-center text-[12px] md:max-w-7xl">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-300">
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-red-500"
+            >
+              Terms & Condition
+            </Link>
+
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-red-500"
+            >
+              Privacy Policy
+            </Link>
+
+            <Link
+              href="/cancellation-refund"
+              className="transition-colors hover:text-red-500"
+            >
+              Cancellation & Refund
+            </Link>
+
+            <span>ISO 27001:2013</span>
+            <span>ISO 9001:2015</span>
+          </div>
+
+          <p className="text-slate-400">©2026 | All rights reserved.</p>
+
+          <p className="text-slate-400">
+            Built with <span className="text-red-500">♥</span> in India.
+          </p>
         </div>
-        <p className="mt-4 text-slate-600">
-          © 2026 Elevate Education. All rights reserved.
-        </p>
       </div>
     </footer>
   );

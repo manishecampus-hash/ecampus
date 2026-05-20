@@ -1,49 +1,55 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 export function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const testimonials = [
     {
-      name: 'Sarah Chen',
-      title: 'Product Manager, Tech Corp',
-      content: 'The program transformed my career. Within 3 months of completing the PM course, I landed my dream role with a 40% salary increase. The hands-on projects were incredibly valuable.',
-      image: '👩‍💼',
+      name: "Sarah Chen",
+      title: "Product Manager, Tech Corp",
+      content:
+        "The program transformed my career. Within 3 months of completing the PM course, I landed my dream role with a 40% salary increase. The hands-on projects were incredibly valuable.",
+      image: "👩‍💼",
       rating: 5,
     },
     {
-      name: 'Marcus Johnson',
-      title: 'Senior Software Engineer',
-      content: 'As a career changer, I was nervous about upskilling. The Full Stack program broke everything down perfectly. The mentorship was exceptional and job support helped me land offers from multiple companies.',
-      image: '👨‍💻',
+      name: "Marcus Johnson",
+      title: "Senior Software Engineer",
+      content:
+        "As a career changer, I was nervous about upskilling. The Full Stack program broke everything down perfectly. The mentorship was exceptional and job support helped me land offers from multiple companies.",
+      image: "👨‍💻",
       rating: 5,
     },
     {
-      name: 'Priya Sharma',
-      title: 'Data Scientist, Analytics Startup',
-      content: 'The Data Science course gave me exactly what I needed. Real-world projects, expert instructors, and a supportive community. I went from curious to job-ready in under a year.',
-      image: '👩‍🔬',
+      name: "Priya Sharma",
+      title: "Data Scientist, Analytics Startup",
+      content:
+        "The Data Science course gave me exactly what I needed. Real-world projects, expert instructors, and a supportive community. I went from curious to job-ready in under a year.",
+      image: "👩‍🔬",
       rating: 5,
     },
     {
-      name: 'James Wilson',
-      title: 'MBA Graduate, Finance Director',
-      content: 'The MBA program balanced theory with practice perfectly. Studying while working was manageable because of the flexible schedule. My colleagues have noticed a real difference in my strategic thinking.',
-      image: '👨‍💼',
+      name: "James Wilson",
+      title: "MBA Graduate, Finance Director",
+      content:
+        "The MBA program balanced theory with practice perfectly. Studying while working was manageable because of the flexible schedule. My colleagues have noticed a real difference in my strategic thinking.",
+      image: "👨‍💼",
       rating: 5,
     },
-  ]
+  ];
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
+  };
 
   return (
     <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -57,7 +63,8 @@ export function TestimonialsSection() {
             What Our Graduates Say
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto text-pretty">
-            Join thousands of students who've transformed their careers with our programs.
+            Join thousands of students who've transformed their careers with our
+            programs.
           </p>
         </div>
 
@@ -67,7 +74,10 @@ export function TestimonialsSection() {
             {/* Stars */}
             <div className="flex mb-6">
               {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                <Star
+                  key={i}
+                  className="w-5 h-5 text-yellow-400 fill-current"
+                />
               ))}
             </div>
 
@@ -78,9 +88,7 @@ export function TestimonialsSection() {
 
             {/* Author */}
             <div className="flex items-center space-x-4">
-              <div className="text-4xl">
-                {testimonials[currentIndex].image}
-              </div>
+              <div className="text-4xl">{testimonials[currentIndex].image}</div>
               <div>
                 <p className="font-bold text-gray-900">
                   {testimonials[currentIndex].name}
@@ -110,8 +118,8 @@ export function TestimonialsSection() {
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? 'bg-red-600 w-8'
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? "bg-red-600 w-8"
+                      : "bg-gray-300 hover:bg-gray-400"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -129,5 +137,5 @@ export function TestimonialsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

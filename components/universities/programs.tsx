@@ -33,14 +33,6 @@ const courseTabs: { id: CourseTab; label: string }[] = [
   { id: "certifications", label: "Certifications" },
 ];
 
-const categories = [
-  "Trending",
-  "Management",
-  "Technology",
-  "Arts & Humanities",
-  "Commerce",
-];
-
 const programsData: ProgramCardProps[] = [
   {
     id: "mba-healthcare",
@@ -144,27 +136,6 @@ export default function ProgramsSection() {
                 }`}
               >
                 {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mb-8 flex flex-wrap gap-8">
-          {categories.map((category) => {
-            const isActive = activeCategory === category;
-
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => setActiveCategory(category)}
-                className={`text-sm font-medium transition ${
-                  isActive
-                    ? "text-red-500"
-                    : "text-slate-500 hover:text-red-500"
-                }`}
-              >
-                {category}
               </button>
             );
           })}
