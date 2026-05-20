@@ -24,18 +24,9 @@ const navigation = {
               name: "Ecole de Commerce International (ESGCI)",
               href: "/degrees/phd",
             },
-            {
-              name: "Rushford Business School",
-              href: "/degrees/phd",
-            },
-            {
-              name: "Edgewood",
-              href: "/degrees/phd",
-            },
-            {
-              name: "Golden Gate University",
-              href: "/degrees/phd",
-            },
+            { name: "Rushford Business School", href: "/degrees/phd" },
+            { name: "Edgewood", href: "/degrees/phd" },
+            { name: "Golden Gate University", href: "/degrees/phd" },
           ],
         },
         {
@@ -99,13 +90,12 @@ const navigation = {
   ],
 };
 
-// RED HOVER STYLE ADDED HERE
 const Underline =
   "hover:-translate-y-1 border border-dotted border-slate-700 rounded-xl p-2.5 transition-all duration-300 hover:border-red-500 hover:bg-red-500/10 hover:text-red-500 text-slate-400";
 
 export function Footer() {
   return (
-    <footer className="border-t border-dotted border-slate-800 mx-auto w-full bg-[#111828]">
+    <footer className="border-t border-dotted border-slate-800 mx-auto w-full bg-[#191e27]">
       {/* Brand & Intro */}
       <div className="relative mx-auto grid max-w-7xl items-center justify-center gap-6 p-10 pb-0 md:flex">
         <Link href="/" className="flex items-center justify-center">
@@ -117,32 +107,35 @@ export function Footer() {
             className="h-12 w-auto object-contain brightness-0 invert"
           />
         </Link>
-        <p className="bg-transparent text-center text-xs leading-4 text-slate-400 md:text-left">
+
+        <p className="max-w-3xl text-center text-sm leading-6 text-slate-400 md:text-left">
           eCampus is a next-generation AI-enabled higher education platform
           designed to empower learners through UGC-recognized online and global
           hybrid degree programs offered by top universities across the world.
         </p>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-10 ">
-        <div className="border-b border-dotted border-slate-800 "></div>
+      <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="border-b border-dotted border-slate-800"></div>
+
         <div className="py-10">
           {navigation.categories.map((category) => (
             <div
-              key={category.name}
-              className="grid grid-cols-2 sm:grid-cols-3 md:flex flex-row justify-between gap-6 leading-6"
+              key={category.id}
+              className="grid grid-cols-2 gap-6 leading-6 sm:grid-cols-3 md:flex md:flex-row md:justify-between"
             >
               {category.sections.map((section) => (
-                <div key={section.name}>
-                  <h4 className="font-semibold text-sm mb-4 text-white">
+                <div key={section.id}>
+                  <h4 className="mb-4 text-sm font-semibold text-white">
                     {section.name}
                   </h4>
+
                   <ul role="list" className="flex flex-col space-y-2">
                     {section.items.map((item) => (
                       <li key={item.name} className="flow-root">
                         <Link
                           href={item.href}
-                          className="text-sm text-slate-500 hover:text-red-500 transition-colors duration-200"
+                          className="text-sm text-slate-500 transition-colors duration-200 hover:text-red-500"
                         >
                           {item.name}
                         </Link>
@@ -154,56 +147,66 @@ export function Footer() {
             </div>
           ))}
         </div>
+
         <div className="border-b border-dotted border-slate-800"></div>
       </div>
 
-      {/* Social Icons with Red Hover */}
+      {/* Social Icons */}
       <div className="flex flex-wrap justify-center gap-y-6 py-8">
         <div className="flex flex-wrap items-center justify-center gap-6 gap-y-4 px-6">
           <Link
             aria-label="Email"
             href="mailto:contact@elevate.com"
-            target="_blank"
             className={Underline}
           >
             <DIcons.Mail strokeWidth={1.5} className="h-5 w-5" />
           </Link>
+
           <Link
             aria-label="Twitter"
             href="https://twitter.com"
             target="_blank"
+            rel="noopener noreferrer"
             className={Underline}
           >
             <DIcons.X className="h-5 w-5" />
           </Link>
+
           <Link
             aria-label="Instagram"
             href="https://instagram.com"
             target="_blank"
+            rel="noopener noreferrer"
             className={Underline}
           >
             <DIcons.Instagram className="h-5 w-5" />
           </Link>
+
           <Link
             aria-label="LinkedIn"
             href="https://linkedin.com"
             target="_blank"
+            rel="noopener noreferrer"
             className={Underline}
           >
             <DIcons.LinkedIn className="h-5 w-5" />
           </Link>
+
           <Link
             aria-label="Facebook"
             href="https://facebook.com"
             target="_blank"
+            rel="noopener noreferrer"
             className={Underline}
           >
             <DIcons.Facebook className="h-5 w-5" />
           </Link>
+
           <Link
             aria-label="YouTube"
             href="https://youtube.com"
             target="_blank"
+            rel="noopener noreferrer"
             className={Underline}
           >
             <DIcons.YouTube className="h-5 w-5" />
