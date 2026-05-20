@@ -1,0 +1,20 @@
+[33m1fd2aba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to 1fd2aba
+[33mec31bc2[m HEAD@{1}: commit: footer color
+[33ma00e268[m HEAD@{2}: commit: icon added
+[33m1fd2aba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{3}: commit: blog imaage
+[33m249df0b[m HEAD@{4}: commit: Approvals
+[33m8720e5a[m HEAD@{5}: commit: program section optimize
+[33m7235028[m HEAD@{6}: commit: footer added
+[33m6feb87c[m HEAD@{7}: commit: online dba page
+[33mf46ef8b[m HEAD@{8}: commit: update op section
+[33ma5b2cf9[m HEAD@{9}: commit: O.P. Jindal
+[33m8a44981[m HEAD@{10}: commit: new cta pages added
+[33m5ea15fa[m HEAD@{11}: commit: banner added
+[33mc9a822c[m HEAD@{12}: commit: nav bar changes
+[33m0d8f155[m HEAD@{13}: commit: new section added
+[33m1b1f783[m HEAD@{14}: commit: Added new section
+[33m64af11c[m HEAD@{15}: commit: Add university section component and asset folders
+[33m68555c8[m HEAD@{16}: commit: fix header visibility
+[33m369d066[m HEAD@{17}: commit: final working frontend
+[33m811c302[m HEAD@{18}: Branch: renamed refs/heads/master to refs/heads/main
+[33m811c302[m HEAD@{20}: commit (initial): frontend only
