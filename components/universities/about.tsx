@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { CheckCircle2, ChevronRight } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronRight,
+  Award,
+  Users,
+  TrendingUp,
+  Globe,
+} from "lucide-react";
 
 type TabKey =
   | "Program Overview"
@@ -9,6 +16,33 @@ type TabKey =
   | "Eligibility"
   | "Who is this Program for"
   | "Program Fee";
+
+const overviewCards = [
+  {
+    value: "#3 Top Tier",
+    label: "NIRF Management Rank",
+    icon: <Award className="h-5 w-5 text-red-500" />,
+    iconBg: "bg-red-50",
+  },
+  {
+    value: "10,000+",
+    label: "Global Active Alumni",
+    icon: <Users className="h-5 w-5 text-blue-500" />,
+    iconBg: "bg-blue-50",
+  },
+  {
+    value: "₹43.9 LPA",
+    label: "Highest Salary CTC",
+    icon: <TrendingUp className="h-5 w-5 text-orange-500" />,
+    iconBg: "bg-orange-50",
+  },
+  {
+    value: "40+ Countries",
+    label: "International Alliances",
+    icon: <Globe className="h-5 w-5 text-slate-500" />,
+    iconBg: "bg-slate-100",
+  },
+];
 
 const tabContent: Record<
   TabKey,
@@ -22,16 +56,8 @@ const tabContent: Record<
     heading: "Program <span class='text-red-600'>Overview</span>",
     subtext:
       "The IIM Kozhikode HR Analytics programme is designed for working professionals who want to combine human resource leadership with analytical decision-making. The curriculum integrates strategic HR frameworks, business context, and modern analytics tools to help learners solve workforce challenges through data-driven insights.",
-    list: [
-      "Executive education from IIM Kozhikode",
-      "Live faculty-led online sessions",
-      "Industry-oriented case studies and practical applications",
-      "Hands-on exposure to HR analytics tools and dashboards",
-      "Flexible learning format for working professionals",
-      "Capstone-based applied learning experience",
-    ],
+    list: [],
   },
-
   "Skills You Will Learn": {
     heading: "Skills You Will <span class='text-red-600'>Learn</span>",
     subtext:
@@ -47,7 +73,6 @@ const tabContent: Record<
       "AI-enabled human capital insights",
     ],
   },
-
   Eligibility: {
     heading: "Minimum <span class='text-red-600'>Eligibility</span>",
     subtext:
@@ -61,7 +86,6 @@ const tabContent: Record<
       "No prior analytics background required",
     ],
   },
-
   "Who is this Program for": {
     heading: "Who Can <span class='text-red-600'>Pursue This Program?</span>",
     subtext:
@@ -75,7 +99,6 @@ const tabContent: Record<
       "Professionals preparing for leadership roles in HR",
     ],
   },
-
   "Program Fee": {
     heading: "Program <span class='text-red-600'>Fee & Investment</span>",
     subtext:
@@ -94,8 +117,7 @@ const tabContent: Record<
 const tabs = Object.keys(tabContent) as TabKey[];
 
 export default function AboutProgram() {
-  const [activeTab, setActiveTab] = useState<TabKey>("Skills You Will Learn");
-
+  const [activeTab, setActiveTab] = useState<TabKey>("Program Overview");
   const currentContent = useMemo(() => tabContent[activeTab], [activeTab]);
 
   return (
@@ -106,11 +128,9 @@ export default function AboutProgram() {
           <span className="mb-4 inline-flex rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600">
             About
           </span>
-
           <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-800 sm:text-4xl lg:text-4xl">
             About IIM K HR Analytics Course
           </h2>
-
           <p className="mt-4 text-sm leading-7 text-slate-500 sm:text-base">
             Empowering HR professionals with data-driven insights and strategic
             decision-making capabilities.
@@ -124,7 +144,6 @@ export default function AboutProgram() {
             <div className="flex flex-col gap-2 rounded-3xl border border-slate-100 bg-white p-2">
               {tabs.map((tab) => {
                 const active = activeTab === tab;
-
                 return (
                   <button
                     key={tab}
@@ -137,7 +156,6 @@ export default function AboutProgram() {
                     }`}
                   >
                     <span className="pr-3 leading-snug">{tab}</span>
-
                     <ChevronRight
                       className={`h-4 w-4 shrink-0 transition-all duration-200 ${
                         active
@@ -151,39 +169,64 @@ export default function AboutProgram() {
             </div>
           </div>
 
-          {/* Content */}
+          {/* Content panel */}
           <div className="lg:col-span-8">
-            <div className="rounded-[28px] border border-slate-100 bg-slate-50 p-6 shadow-sm sm:p-8 lg:min-h-[520px] lg:p-12">
+            <div className="rounded-[28px] border border-slate-100 bg-slate-50 p-6 shadow-sm sm:p-8 lg:p-10 flex flex-col items-center text-center">
               <div
                 key={activeTab}
-                className="animate-in fade-in slide-in-from-right-4 duration-300"
+                className="animate-in fade-in slide-in-from-right-4 duration-300 w-full flex flex-col items-center"
               >
                 <h3
-                  className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl lg:text-4xl"
+                  className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl"
                   dangerouslySetInnerHTML={{
                     __html: currentContent.heading,
                   }}
                 />
 
-                <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
                   {currentContent.subtext}
                 </p>
 
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {currentContent.list.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-start gap-3 rounded-2xl bg-white px-4 py-4 shadow-sm"
-                    >
-                      <div className="mt-0.5 rounded-full border border-red-100 bg-red-50 p-1">
-                        <CheckCircle2 className="h-4 w-4 text-red-500" />
-                      </div>
-
-                      <span className="text-sm font-medium leading-6 text-slate-700 sm:text-base">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                {/* Conditional centered grid container configurations */}
+                <div
+                  className={`mt-6 grid grid-cols-1 gap-4 mx-auto w-full ${
+                    activeTab === "Program Overview"
+                      ? "sm:grid-cols-2 max-w-md"
+                      : "sm:grid-cols-2 max-w-2xl"
+                  }`}
+                >
+                  {activeTab === "Program Overview"
+                    ? overviewCards.map((card, idx) => (
+                        <div
+                          key={idx}
+                          className="flex flex-col items-center text-center gap-3 rounded-2xl border border-slate-150/60 bg-white p-4 shadow-sm w-full"
+                        >
+                          <div className={`rounded-xl p-2 ${card.iconBg}`}>
+                            {card.icon}
+                          </div>
+                          <div>
+                            <div className="text-lg font-extrabold text-slate-900 tracking-tight">
+                              {card.value}
+                            </div>
+                            <div className="text-xs font-semibold text-slate-400 mt-0.5 leading-tight">
+                              {card.label}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    : currentContent.list.map((item) => (
+                        <div
+                          key={item}
+                          className="flex flex-col items-center text-center gap-2 rounded-2xl bg-white px-4 py-4 shadow-sm w-full"
+                        >
+                          <div className="rounded-full border border-red-100 bg-red-50 p-1">
+                            <CheckCircle2 className="h-4 w-4 text-red-500" />
+                          </div>
+                          <span className="text-sm font-medium leading-relaxed text-slate-700">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
                 </div>
               </div>
             </div>

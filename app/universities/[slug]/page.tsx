@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import HeroSection from "@/components/universities/hero-section";
-import OverviewSection from "@/components/universities/overview-section";
+// import OverviewSection from "@/components/universities/overview-section";
 // import CoursesSection from "@/components/universities/courses-section";
 import FAQSection from "@/components/universities/faq-section";
 
@@ -33,7 +33,7 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
   return (
     <main className="min-h-screen bg-white">
       <HeroSection university={university} />
-      <OverviewSection university={university} />
+      {/* <OverviewSection university={university} /> */}
       <AboutProgram university={university} />
       <ProgramsSection university={university} />
       <TopSpecializations university={university} />

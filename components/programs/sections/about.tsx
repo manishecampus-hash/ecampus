@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { CheckCircle2, ChevronRight } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronRight,
+  Award,
+  Users,
+  TrendingUp,
+  Globe,
+} from "lucide-react";
 
 type TabKey =
   | "Program Overview"
@@ -9,6 +16,35 @@ type TabKey =
   | "Eligibility"
   | "Who is this Program for"
   | "Program Fee";
+
+// Helper to define structured data for the Overview Cards
+const overviewCards = [
+  {
+    value: "#3 Top Tier",
+    label: "NIRF Management Rank",
+    icon: <Award className="h-6 w-6 text-red-500" />,
+    iconBg: "bg-red-50",
+  },
+  {
+    value: "10,000+",
+    label: "Global Active Alumni",
+    icon: <Users className="h-6 w-6 text-blue-500" />,
+    iconBg: "bg-blue-50",
+  },
+  {
+    value: "₹43.9 LPA",
+    label: "Highest Salary CTC",
+    icon: <TrendingUp className="h-6 w-6 text-orange-500" />,
+    iconBg: "bg-orange-50",
+  },
+  {
+    value: "40+",
+    label: "Countries",
+    subLabel: "International Alliances",
+    icon: <Globe className="h-6 w-6 text-slate-500" />,
+    iconBg: "bg-slate-100",
+  },
+];
 
 const tabContent: Record<
   TabKey,
@@ -22,14 +58,7 @@ const tabContent: Record<
     heading: "Program <span class='text-red-600'>Overview</span>",
     subtext:
       "The IIM Kozhikode HR Analytics programme is designed for working professionals who want to combine human resource leadership with analytical decision-making. The curriculum integrates strategic HR frameworks, business context, and modern analytics tools to help learners solve workforce challenges through data-driven insights.",
-    list: [
-      "Executive education from IIM Kozhikode",
-      "Live faculty-led online sessions",
-      "Industry-oriented case studies and practical applications",
-      "Hands-on exposure to HR analytics tools and dashboards",
-      "Flexible learning format for working professionals",
-      "Capstone-based applied learning experience",
-    ],
+    list: [], // Overview uses the structured overviewCards array instead
   },
 
   "Skills You Will Learn": {
@@ -94,7 +123,8 @@ const tabContent: Record<
 const tabs = Object.keys(tabContent) as TabKey[];
 
 export default function AboutProgram() {
-  const [activeTab, setActiveTab] = useState<TabKey>("Skills You Will Learn");
+  // Set 1st tab (Program Overview) as active by default
+  const [activeTab, setActiveTab] = useState<TabKey>("Program Overview");
 
   const currentContent = useMemo(() => tabContent[activeTab], [activeTab]);
 
@@ -170,20 +200,44 @@ export default function AboutProgram() {
                 </p>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {currentContent.list.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-start gap-3 rounded-2xl bg-white px-4 py-4 shadow-sm"
-                    >
-                      <div className="mt-0.5 rounded-full border border-red-100 bg-red-50 p-1">
-                        <CheckCircle2 className="h-4 w-4 text-red-500" />
-                      </div>
+                  {/* CUSTOM DESIGN FOR PROGRAM OVERVIEW */}
+                  {activeTab === "Program Overview"
+                    ? overviewCards.map((card, idx) => (
+                        <div
+                          key={idx}
+                          className="flex flex-col items-start gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
+                        >
+                          <div className={`rounded-xl p-2.5 ${card.iconBg}`}>
+                            {card.icon}
+                          </div>
+                          <div>
+                            <div className="text-2xl font-extrabold text-slate-900">
+                              {card.value}
+                            </div>
+                            <div className="text-sm font-medium text-slate-400">
+                              {card.label}
+                              {card.subLabel && (
+                                <div className="mt-0">{card.subLabel}</div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    : /* STANDARD DESIGN FOR OTHER TABS */
+                      currentContent.list.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-start gap-3 rounded-2xl bg-white px-4 py-4 shadow-sm"
+                        >
+                          <div className="mt-0.5 rounded-full border border-red-100 bg-red-50 p-1">
+                            <CheckCircle2 className="h-4 w-4 text-red-500" />
+                          </div>
 
-                      <span className="text-sm font-medium leading-6 text-slate-700 sm:text-base">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                          <span className="text-sm font-medium leading-6 text-slate-700 sm:text-base">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
                 </div>
               </div>
             </div>

@@ -2213,228 +2213,50 @@
 
 "use client";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
-  Award,
-  BookOpen,
-  Briefcase,
-  Building2,
   ChevronDown,
   ChevronRight,
   Clock,
-  FileText,
-  GraduationCap,
-  Handshake,
-  HelpCircle,
-  Layers,
-  Leaf,
   Menu,
   Phone,
-  RotateCcw,
-  Shield,
-  University,
   Users,
   X,
 } from "lucide-react";
+import { categories, companyLinks, companyLinks2 } from "@/data/header-menu";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+function CustomCursor() {
+  const cursorRef = useRef(null);
 
-const categories = [
-  {
-    id: "iim",
-    label: "IIM Certification Courses",
-    Icon: Award,
-    courses: [
-      {
-        tag: "Certification",
-        name: "IIM K – HR Management & Analytics",
-        duration: "8 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM K – AI Professional Certificate",
-        duration: "6 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM K – Digital Marketing & Strategy",
-        duration: "5 Months",
-      },
-      {
-        tag: "Certification",
-        name: "IIM B – Finance for Non-Finance Managers",
-        duration: "4 Months",
-      },
-    ],
-  },
-  {
-    id: "dba",
-    label: "Online Doctorate (DBA)",
-    Icon: GraduationCap,
-    courses: [
-      {
-        tag: "Doctorate",
-        name: "Doctor of Business Administration – General",
-        duration: "3 Years",
-      },
-      {
-        tag: "Doctorate",
-        name: "DBA – Leadership & Strategy",
-        duration: "3 Years",
-      },
-    ],
-  },
-  {
-    id: "ug",
-    label: "Online UG Courses",
-    Icon: BookOpen,
-    courses: [
-      {
-        tag: "Undergraduate",
-        name: "B.Com – Accounting & Finance",
-        duration: "3 Years",
-      },
-      {
-        tag: "Undergraduate",
-        name: "BBA – Business Administration",
-        duration: "3 Years",
-      },
-      {
-        tag: "Undergraduate",
-        name: "B.Sc Computer Science",
-        duration: "3 Years",
-      },
-      {
-        tag: "Undergraduate",
-        name: "BA – Psychology & Sociology",
-        duration: "3 Years",
-      },
-    ],
-  },
-  {
-    id: "pg",
-    label: "Online PG Courses",
-    Icon: Layers,
-    courses: [
-      {
-        tag: "Postgraduate",
-        name: "MBA – General Management",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "M.Com – Financial Management",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "MCA – Computer Applications",
-        duration: "2 Years",
-      },
-      {
-        tag: "Postgraduate",
-        name: "MA – HR & Organisational Psychology",
-        duration: "2 Years",
-      },
-    ],
-  },
-  {
-    id: "offline",
-    label: "Offline Certification Courses",
-    Icon: Building2,
-    courses: [
-      {
-        tag: "Certification",
-        name: "Data Science & Machine Learning",
-        duration: "6 Months",
-      },
-      {
-        tag: "Certification",
-        name: "Full Stack Web Development",
-        duration: "4 Months",
-      },
-      {
-        tag: "Certification",
-        name: "UI/UX Design Bootcamp",
-        duration: "3 Months",
-      },
-    ],
-  },
-  {
-    id: "exec",
-    label: "1 Year Executive Program",
-    Icon: Briefcase,
-    courses: [
-      {
-        tag: "Executive",
-        name: "Executive MBA – Business Leadership",
-        duration: "12 Months",
-      },
-      {
-        tag: "Executive",
-        name: "Executive PG – Product Management",
-        duration: "11 Months",
-      },
-      {
-        tag: "Executive",
-        name: "Executive PG – Data Science & AI",
-        duration: "12 Months",
-      },
-    ],
-  },
-  {
-    id: "uni",
-    label: "Universities",
-    Icon: University,
-    courses: [
-      {
-        tag: "University",
-        name: "Jain University – Online Programs",
-        duration: "Multiple",
-      },
-      {
-        tag: "University",
-        name: "Amity University – Distance Learning",
-        duration: "Multiple",
-      },
-      {
-        tag: "University",
-        name: "Manipal University – UG & PG Programs",
-        duration: "Multiple",
-      },
-    ],
-  },
-];
+  useEffect(() => {
+    const el = cursorRef.current;
+    const onMove = (e) => {
+      el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    };
+    document.addEventListener("mousemove", onMove);
+    return () => document.removeEventListener("mousemove", onMove);
+  }, []);
 
-const companyLinks = [
-  {
-    title: "About Us",
-    href: "#",
-    description: "Learn more about our story and mission",
-    Icon: Users,
-  },
-  {
-    title: "Success Stories",
-    href: "#",
-    description: "See how learners transformed their careers",
-    Icon: Award,
-  },
-  {
-    title: "Partnerships",
-    href: "#",
-    description: "Collaborate with top universities and companies",
-    Icon: Handshake,
-  },
-];
-
-const companyLinks2 = [
-  { title: "Terms of Service", href: "#", Icon: FileText },
-  { title: "Privacy Policy", href: "#", Icon: Shield },
-  { title: "Refund Policy", href: "#", Icon: RotateCcw },
-  { title: "Help Center", href: "#", Icon: HelpCircle },
-];
-
-// ─── GrayIcon ─────────────────────────────────────────────────────────────────
-
+  return (
+    <div
+      ref={cursorRef}
+      style={{
+        position: "fixed",
+        top: "-6px",
+        left: "-6px",
+        width: "12px",
+        height: "12px",
+        borderRadius: "50%",
+        backgroundColor: "#ef4444",
+        pointerEvents: "none",
+        zIndex: 99999,
+        willChange: "transform",
+      }}
+    />
+  );
+}
+// ─── Shared helpers ───────────────────────────────────────────────────────────
 function GrayIcon({
   Icon,
   size = 16,
@@ -2449,11 +2271,14 @@ function GrayIcon({
   );
 }
 
-// ─── CourseCard ───────────────────────────────────────────────────────────────
-
-function CourseCard({ tag, name, duration }) {
+// ✅ FIX 3: onNavigate prop closes the menu when a course link is clicked
+function CourseCard({ tag, name, duration, href = "#", onNavigate }) {
   return (
-    <div className="border border-gray-200 rounded-xl p-4 cursor-pointer transition-all duration-150 hover:border-red-400 hover:bg-red-50">
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className="block border border-gray-200 rounded-xl p-4 transition-all duration-150 hover:border-red-400 hover:bg-red-50"
+    >
       <p className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-red-500">
         {tag}
       </p>
@@ -2464,23 +2289,20 @@ function CourseCard({ tag, name, duration }) {
         <Clock size={11} />
         {duration}
       </span>
-    </div>
+    </Link>
   );
 }
 
-// ─── Program Mega Dropdown ────────────────────────────────────────────────────
-
-function ProgramDropdown({ open }) {
+// ─── Desktop dropdowns ────────────────────────────────────────────────────────
+function ProgramDropdown({ open, onClose }) {
   const [activeCat, setActiveCat] = useState(categories[0].id);
   const active = categories.find((c) => c.id === activeCat);
 
   if (!open) return null;
 
   return (
-    // Floating dropdown — positioned below the floating navbar pill
     <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[900px] max-w-[calc(100vw-32px)] bg-white rounded-2xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
       <div className="flex min-h-[360px]">
-        {/* Left: category list */}
         <aside className="w-60 border-r border-gray-100 py-2 flex-shrink-0 bg-gray-50/80">
           {categories.map((cat) => {
             const isActive = cat.id === activeCat;
@@ -2512,7 +2334,6 @@ function ProgramDropdown({ open }) {
           })}
         </aside>
 
-        {/* Right: courses */}
         <div className="flex-1 flex flex-col">
           <div className="flex items-center gap-3 px-5 pt-4 pb-3 border-b border-gray-100">
             <GrayIcon
@@ -2532,7 +2353,8 @@ function ProgramDropdown({ open }) {
           <div className="flex-1 p-5">
             <div className="grid grid-cols-2 gap-3">
               {active.courses.map((c, i) => (
-                <CourseCard key={i} {...c} />
+                // ✅ FIX 3: pass onClose so clicking a course closes the dropdown
+                <CourseCard key={i} {...c} onNavigate={onClose} />
               ))}
             </div>
           </div>
@@ -2542,21 +2364,20 @@ function ProgramDropdown({ open }) {
   );
 }
 
-// ─── Company Dropdown ─────────────────────────────────────────────────────────
-
-function CompanyDropdown({ open }) {
+function CompanyDropdown({ open, onClose }) {
   if (!open) return null;
 
   return (
     <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[640px] max-w-[calc(100vw-32px)] bg-white rounded-2xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
       <div className="p-3">
         <div className="grid grid-cols-2 gap-3">
-          {/* Left: with description */}
           <div className="space-y-1 border border-gray-100 rounded-xl p-2 bg-gray-50/60">
             {companyLinks.map((item) => (
-              <a
+              // ✅ FIX 3: use Next.js Link + onClose instead of plain <a>
+              <Link
                 key={item.title}
                 href={item.href}
+                onClick={onClose}
                 className="flex items-center gap-3 p-2 rounded-lg hover:bg-white transition-colors"
               >
                 <div className="w-10 h-10 bg-white border border-gray-200 shadow-sm rounded-lg flex items-center justify-center flex-shrink-0">
@@ -2568,23 +2389,23 @@ function CompanyDropdown({ open }) {
                   </p>
                   <p className="text-xs text-gray-500">{item.description}</p>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* Right: simple links */}
           <div className="space-y-0.5 p-2">
             {companyLinks2.map((item) => (
-              <a
+              <Link
                 key={item.title}
                 href={item.href}
+                onClick={onClose}
                 className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <item.Icon size={14} className="text-gray-500 flex-shrink-0" />
                 <span className="text-sm font-medium text-gray-700">
                   {item.title}
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -2593,16 +2414,14 @@ function CompanyDropdown({ open }) {
   );
 }
 
-// ─── Mobile Menu ──────────────────────────────────────────────────────────────
-
-function MobileMenu({ open }) {
+// ─── Mobile menu ──────────────────────────────────────────────────────────────
+function MobileMenu({ open, onClose }) {
   const [expanded, setExpanded] = useState(null);
   const [companyExpanded, setCompanyExpanded] = useState(false);
 
   if (!open) return null;
 
   return (
-    // Floats below the pill navbar with rounded corners
     <div className="fixed left-4 right-4 top-[72px] bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-2xl shadow-2xl border border-gray-200 pb-4 md:hidden">
       <div className="px-4 pt-4 space-y-1">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 mb-3">
@@ -2615,7 +2434,9 @@ function MobileMenu({ open }) {
             <div key={id}>
               <button
                 onClick={() => setExpanded(isOpen ? null : id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${isOpen ? "bg-red-50" : "hover:bg-gray-50"}`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                  isOpen ? "bg-red-50" : "hover:bg-gray-50"
+                }`}
               >
                 <GrayIcon
                   Icon={Icon}
@@ -2623,22 +2444,28 @@ function MobileMenu({ open }) {
                   boxClass={`w-9 h-9 rounded-xl ${isOpen ? "bg-red-100" : "bg-gray-100"}`}
                 />
                 <span
-                  className={`font-medium flex-1 text-left ${isOpen ? "text-red-600" : "text-gray-800"}`}
+                  className={`font-medium flex-1 text-left ${
+                    isOpen ? "text-red-600" : "text-gray-800"
+                  }`}
                 >
                   {label}
                 </span>
                 <ChevronDown
                   size={15}
-                  className={`flex-shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-red-400" : "text-gray-400"}`}
+                  className={`flex-shrink-0 transition-transform duration-200 ${
+                    isOpen ? "rotate-180 text-red-400" : "text-gray-400"
+                  }`}
                 />
               </button>
 
               {isOpen && (
                 <div className="ml-12 mt-1.5 space-y-2 pb-2">
                   {courses.map((c, i) => (
-                    <a
+                    // ✅ FIX 3: close mobile menu on link click too
+                    <Link
                       key={i}
-                      href="#"
+                      href={c.href || "#"}
+                      onClick={onClose}
                       className="block px-3 py-2.5 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5 text-red-500">
@@ -2651,7 +2478,7 @@ function MobileMenu({ open }) {
                         <Clock size={10} />
                         {c.duration}
                       </span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -2665,7 +2492,9 @@ function MobileMenu({ open }) {
 
         <button
           onClick={() => setCompanyExpanded((v) => !v)}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${companyExpanded ? "bg-gray-100" : "hover:bg-gray-50"}`}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+            companyExpanded ? "bg-gray-100" : "hover:bg-gray-50"
+          }`}
         >
           <GrayIcon
             Icon={Users}
@@ -2677,32 +2506,36 @@ function MobileMenu({ open }) {
           </span>
           <ChevronDown
             size={15}
-            className={`text-gray-400 transition-transform duration-200 ${companyExpanded ? "rotate-180" : ""}`}
+            className={`text-gray-400 transition-transform duration-200 ${
+              companyExpanded ? "rotate-180" : ""
+            }`}
           />
         </button>
 
         {companyExpanded && (
           <div className="ml-12 mt-1.5 space-y-1 pb-2">
             {[...companyLinks, ...companyLinks2].map((item) => (
-              <a
+              <Link
                 key={item.title}
                 href={item.href}
+                onClick={onClose}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <item.Icon size={14} className="text-gray-500 flex-shrink-0" />
                 <span className="text-sm text-gray-700">{item.title}</span>
-              </a>
+              </Link>
             ))}
           </div>
         )}
 
         <div className="pt-4 border-t border-gray-100 space-y-1">
-          <a
+          <Link
             href="/blog"
-            className="px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+            onClick={onClose}
+            className="block px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
           >
             Blog
-          </a>
+          </Link>
         </div>
 
         <div className="pt-3 space-y-2">
@@ -2721,21 +2554,29 @@ function MobileMenu({ open }) {
   );
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
-
+// ─── Main Header ──────────────────────────────────────────────────────────────
 export function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
 
+  // ✅ FIX 1: usePathname — close ALL menus on every route change
+  const pathname = usePathname();
+  useEffect(() => {
+    setActiveMenu(null);
+    setMobileOpen(false);
+    document.body.style.overflow = "";
+  }, [pathname]);
+
+  // ✅ FIX 2: "click" not "mousedown" so toggle runs before outside-click handler
   useEffect(() => {
     function handleClick(e) {
       if (headerRef.current && !headerRef.current.contains(e.target))
         setActiveMenu(null);
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
   }, []);
 
   useEffect(() => {
@@ -2753,139 +2594,150 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  const toggle = (menu) => {
+  // ✅ FIX 2: stopPropagation so document click handler doesn't race with toggle
+  const toggle = (menu, e) => {
+    e?.stopPropagation();
     setActiveMenu((prev) => (prev === menu ? null : menu));
     setMobileOpen(false);
   };
 
+  const closeAll = () => {
+    setActiveMenu(null);
+    setMobileOpen(false);
+  };
+
   return (
-    // Outer wrapper: full width, fixed, provides top padding for the floating effect
-    <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
-      <header
-        ref={headerRef}
-        className={`
-          relative mx-auto max-w-6xl
-          bg-white/90 backdrop-blur-md
-          rounded-2xl border border-gray-200
-          transition-all duration-300
-          ${
-            scrolled
-              ? "shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-gray-300"
-              : "shadow-[0_2px_16px_rgba(0,0,0,0.08)]"
-          }
-        `}
-      >
-        <nav className="h-14 px-5 flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="/"
-            className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
-          >
-            <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
-          </a>
-
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-1">
-            <button
-              onClick={() => toggle("program")}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                activeMenu === "program"
-                  ? "bg-red-50 text-red-600"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Programs
-              <ChevronDown
-                size={14}
-                className={`transition-transform duration-200 ${activeMenu === "program" ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <button
-              onClick={() => toggle("company")}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                activeMenu === "company"
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Company
-              <ChevronDown
-                size={14}
-                className={`transition-transform duration-200 ${activeMenu === "company" ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <a
-              href="#"
-              className="px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
-            >
-              Blog
-            </a>
-          </div>
-
-          {/* Desktop right */}
-          <div className="hidden md:flex items-center gap-2">
-            <a
-              href="tel:18001216201"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
-            >
-              <Phone size={14} />
-              1800-121-6201
-            </a>
-            <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm shadow-red-200">
-              Enroll Now
-            </button>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => {
-              setMobileOpen((m) => !m);
-              setActiveMenu(null);
-            }}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </nav>
-
-        {/* Desktop dropdowns — positioned relative to the pill */}
-        <div className="hidden md:block">
-          <ProgramDropdown open={activeMenu === "program"} />
-          <CompanyDropdown open={activeMenu === "company"} />
-        </div>
-      </header>
-
-      {/* Mobile menu — floats below the pill */}
-      <MobileMenu open={mobileOpen} />
-    </div>
-  );
+    <>
+      <style>{`
+       * {
+  cursor: default;
 }
 
-// ─── Usage ────────────────────────────────────────────────────────────────────
-// In layout.tsx:
-//   <Header />
-//   <main className="pt-20">{children}</main>
-//                    ^^^^ pt-20 = 56px navbar + 12px top gap + 4px breathing room
+a,
+button,
+[role="button"] {
+  cursor: pointer;
+}
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-      <Header />
-      <main className="pt-20 max-w-3xl mx-auto px-4 py-16 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">
-          Demo
-        </p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">
-          Floating Navbar
-        </h1>
-        <p className="text-gray-500 text-sm mb-2"></p>
-        <p className="text-gray-500 text-sm">
-          <strong>Programs</strong> aur <strong>Company</strong> click karo
-        </p>
-      </main>
-    </div>
+input,
+textarea {
+  cursor: text;
+}
+      `}</style>
+
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
+        <header
+          ref={headerRef}
+          className={`
+            relative mx-auto max-w-6xl
+            bg-white/90 backdrop-blur-md
+            rounded-2xl border border-gray-200
+            transition-all duration-300
+            ${
+              scrolled
+                ? "shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-gray-300"
+                : "shadow-[0_2px_16px_rgba(0,0,0,0.08)]"
+            }
+          `}
+        >
+          <nav className="h-14 px-5 flex items-center justify-between">
+            {/* Logo */}
+            <Link
+              href="/"
+              onClick={closeAll}
+              className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
+            >
+              <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
+            </Link>
+
+            {/* Desktop nav */}
+            <div className="hidden md:flex items-center gap-1">
+              <button
+                onClick={(e) => toggle("program", e)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  activeMenu === "program"
+                    ? "bg-red-50 text-red-600"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                Programs
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${
+                    activeMenu === "program" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <button
+                onClick={(e) => toggle("company", e)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  activeMenu === "company"
+                    ? "bg-gray-100 text-gray-900"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                Company
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${
+                    activeMenu === "company" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <Link
+                href="/blog"
+                onClick={closeAll}
+                className="px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+              >
+                Blog
+              </Link>
+            </div>
+
+            {/* Desktop CTA */}
+            <div className="hidden md:flex items-center gap-2">
+              <a
+                href="tel:18001216201"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+              >
+                <Phone size={14} />
+                1800-121-6201
+              </a>
+              <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm shadow-red-200">
+                Enroll Now
+              </button>
+            </div>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setMobileOpen((m) => !m);
+                setActiveMenu(null);
+              }}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </nav>
+
+          {/* Desktop dropdowns */}
+          <div className="hidden md:block">
+            <ProgramDropdown
+              open={activeMenu === "program"}
+              onClose={closeAll}
+            />
+            <CompanyDropdown
+              open={activeMenu === "company"}
+              onClose={closeAll}
+            />
+          </div>
+        </header>
+
+        <MobileMenu open={mobileOpen} onClose={closeAll} />
+      </div>
+    </>
   );
 }
